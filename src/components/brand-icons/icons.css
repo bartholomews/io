@@ -1,0 +1,64 @@
+
+.icon-link > a {
+  /* animation */
+  --fadeIn: fadeIn;
+  -webkit-animation-name: var(--fadeIn);
+  animation-name: var(--fadeIn);
+  /* animation delay */
+  -webkit-animation-delay: var(--delay);
+  -moz-animation-delay: var(--delay);
+  animation-delay: var(--delay);
+  /* animation duration */
+  --duration: 1.5s;
+  -webkit-animation-duration: var(--duration);
+  animation-duration: var(--duration);
+  /* fill mode */
+  --fill-mode: both;
+  -webkit-animation-fill-mode: var(--fill-mode);
+  animation-fill-mode: var(--fill-mode);
+}
+
+.icon-link {
+  margin-top: 50px;
+}
+
+.icon-link-1 > a {
+  --delay: 1.5s;
+}
+.icon-link-2 > a {
+  --delay: 2s;
+}
+.icon-link-3 > a {
+  --delay: 2.5s;
+}
+.icon-link-4 {
+  /*margin-left: 80px;*/
+}
+.icon-link-4 > a {
+  --delay: 3s;
+}
+.icon-link-5 {
+  /*margin-right: 80px;*/
+}
+.icon-link-5 > a {
+  --delay: 3.5s;
+}
+
+.icon-link > a {
+  color: black;
+}
+
+/* Unvisited link */
+.icon-link > a:visited {
+  color: black;
+}
+
+/* Visited link */
+.icon-link > a:hover {
+  color: darkblue;
+}
+
+/* Mouse over link */
+.icon-link > a:active {
+  color: black;
+}
