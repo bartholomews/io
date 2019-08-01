@@ -16,6 +16,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
     "core-js": "^2.6.5",
+    "jquery": "1.9.1",
+    "popper.js": "^1.14.7",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
@@ -33,6 +35,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "typescript": "^3.4.3",
     "vue-cli-plugin-bootstrap": "^1.0.0-alpha.1",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.39.0"
   }
 }
