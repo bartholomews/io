@@ -1,5 +1,7 @@
 # io
 
+[![Codeship Status for bartholomews/io](https://app.codeship.com/projects/b166e5d0-96ca-0137-256a-26fbbac5210e/status?branch=master)](https://app.codeship.com/projects/357513)
+
 ## Project setup
 ```
 yarn install
