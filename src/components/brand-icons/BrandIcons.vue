@@ -42,7 +42,7 @@
       <b-col md="12">
         <!-- mail link -->
         <div class="icon-link icon-link-5">
-          <a target="_blank" href="mailto:info@bartholomews.io?Subject=Hello">
+          <a target="_blank" href="mailto:hello@bartholomews.io?Subject=Hello">
             <font-awesome-icon :icon="['fas', 'envelope']" size="3x"/>
           </a>
         </div>
