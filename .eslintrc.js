@@ -4,9 +4,10 @@ module.exports = {
     node: true,
   },
   extends: [
+    // @see https://github.com/vuejs/eslint-plugin-vue/issues/920
     'plugin:vue/essential',
-    '@vue/airbnb',
-    '@vue/typescript',
+    // '@vue/airbnb',          // "@vue/eslint-config-airbnb": "^4.0.0",
+    // '@vue/typescript',      // "@vue/eslint-config-typescript": "^4.0.0",
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
