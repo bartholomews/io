@@ -1,6 +1,6 @@
 # https://github.com/marketplace/actions/github-action-for-yarn
-name: Yarn build and test
-on: [push]
+name: Yarn build and audit
+on: [ push ]
 jobs:
   build:
     name: Test
@@ -16,6 +16,10 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-      - uses: borales/actions-yarn@v2.0.0
+      #      - uses: borales/actions-yarn@v2.0.0
+      #        with:
+      #          cmd: test # will run `yarn test` command
+      - uses: actions/upload-artifact@v2
         with:
-          cmd: test # will run `yarn test` command
+        name: dist artifact
+        path: dist/
