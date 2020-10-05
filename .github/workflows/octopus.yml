@@ -1,53 +1,79 @@
-name: Package Website
+name: Octopus Project
 
-on:
-  push:
-    branches:
-      - master
+# env:
+#   project: DevProject
+#   server: https://mikelevanoctopus.octopus.app
 
 env:
   PACKAGE_PREFIX: 2020.1.1
   OCTOPUS_PROJECT_NAME: io
   OCTOPUS_SPACE_NAME: Default
   OCTOPUS_ENVIRONMENT_NAME: Production
+  
+on:
+  push:
+    branches: master
+    
+#   schedule:
+#     - cron: '0 0 * * *'
+    
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Yarn build
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install # will run `yarn install` command
+      - name: Install Octopus Command-Line Interface
+        run: sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https &&
+             curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - &&
+             sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" &&
+             sudo apt update && sudo apt install octopuscli
+             
+      - name: Create Deployment Directory
+        run: mkdir /tmp/deployments
+             
+      - name: List Releases
+        run: octo list-deployments --project=${{ env.project }} --server=${{ env.server }} --apiKey=${{ secrets.APIKEY }} >> /tmp/deployments/deployments.txt
 
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: audit # will run `yarn audit` command
+#       - name: Azure Storage Action
+#         uses: lauchacarro/Azure-Storage-Action@v1.1
+#         with:
+#           connection-string: ${{ secrets.StorageAccountConnectionString }}
+#           folder: /tmp/deployments
+#           blob-container-name: deployments
 
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build # will run `yarn build` command
-      #      - uses: borales/actions-yarn@v2.0.0
-      #        with:
-      #          cmd: test # will run `yarn test` command
+#     steps:
+#       - name: Yarn build
+#       - uses: actions/checkout@v2
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: install # will run `yarn install` command
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist/
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: audit # will run `yarn audit` command
 
-      - name: Set version
-        id: set-version
-        run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: build # will run `yarn build` command
+#       #      - uses: borales/actions-yarn@v2.0.0
+#       #        with:
+#       #          cmd: test # will run `yarn test` command
 
-      - name: Install Octopus CLI
-        run: |
-          sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
-          curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - && \
-          sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" && \
-          sudo apt update && sudo apt install octopuscli
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: dist
+#           path: dist/
+
+#       - name: Set version
+#         id: set-version
+#         run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
+
+#       - name: Install Octopus CLI
+#         run: |
+#           sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
+#           curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - && \
+#           sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" && \
+#           sudo apt update && sudo apt install octopuscli
 
 #       - name: Package and Push to Octopus
 #         run: |
