@@ -28,15 +28,15 @@ jobs:
         with:
           cmd: install
           
-      - name: Yarn audit
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: audit
+#       - name: Yarn audit
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: audit
   
-      - name: Yarn build
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
+#       - name: Yarn build
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: build
     
       - name: Dist
       - uses: actions/upload-artifact@v2
@@ -44,9 +44,9 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Set version
-        id: set-version
-        run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
+#       - name: Set version
+#         id: set-version
+#         run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
 
       - name: Install Octopus Command-Line Interface
         run: sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https &&
