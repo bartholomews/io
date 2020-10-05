@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: GitHub Action for Yarn
-        uses: Borales/actions-yarn@v2.3.0
+      - name: Yarn install
+        uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
 
@@ -32,16 +32,16 @@ jobs:
 #         with:
 #           cmd: audit
   
-#       - name: Yarn build
-#       - uses: borales/actions-yarn@v2.0.0
-#         with:
-#           cmd: build
+      - name: Yarn build
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
     
-#       - name: Dist
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: dist
-#           path: dist/
+      - name: Prepare artifact
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
 
 #       - name: Set version
 #         id: set-version
@@ -66,10 +66,10 @@ jobs:
 #           folder: /tmp/deployments
 #           blob-container-name: deployments
 
-#       - name: Package and Push to Octopus
-#         run: |
-#           octo pack --id="MyApp.Web" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./dist/" --outFolder="./packages" && \
-#           octo push --package="./packages/MyApp.Web.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}"
+      - name: Package and Push to Octopus
+        run: |
+          octo pack --id="MyApp.Web" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./dist/" --outFolder="./packages" && \
+          octo push --package="./packages/MyApp.Web.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}"
 
-#       - name: Create and Deploy Release
-#         run: octo create-release --project="$OCTOPUS_PROJECT_NAME" --packageVersion="$PACKAGE_VERSION" --releaseNumber="$PACKAGE_VERSION" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
+      - name: Create and Deploy Release
+        run: octo create-release --project="$OCTOPUS_PROJECT_NAME" --packageVersion="$PACKAGE_VERSION" --releaseNumber="$PACKAGE_VERSION" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
