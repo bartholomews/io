@@ -22,11 +22,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Yarn install
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+#       - name: Yarn install
+#       - uses: actions/checkout@v2
+#       - uses: borales/actions-yarn@v2.0.0
+#         with:
+#           cmd: install
           
 #       - name: Yarn audit
 #       - uses: borales/actions-yarn@v2.0.0
@@ -38,11 +38,11 @@ jobs:
 #         with:
 #           cmd: build
     
-      - name: Dist
-      - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist/
+#       - name: Dist
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: dist
+#           path: dist/
 
 #       - name: Set version
 #         id: set-version
