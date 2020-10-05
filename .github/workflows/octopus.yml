@@ -37,11 +37,11 @@ jobs:
         with:
           cmd: build
     
-      - name: Prepare artifact
-      - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist/
+#       - name: Prepare artifact
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: dist
+#           path: dist/
 
 #       - name: Set version
 #         id: set-version
