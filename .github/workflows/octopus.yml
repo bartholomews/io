@@ -56,8 +56,8 @@ jobs:
       - name: Create Deployment Directory
         run: mkdir /tmp/deployments
              
-#       - name: List Releases
-#         run: octo list-deployments --project=${{ env.project }} --server=${{ env.server }} --apiKey=${{ secrets.APIKEY }} >> /tmp/deployments/deployments.txt
+      - name: List Releases
+        run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
 
 #       - name: Azure Storage Action
 #         uses: lauchacarro/Azure-Storage-Action@v1.1
@@ -66,10 +66,10 @@ jobs:
 #           folder: /tmp/deployments
 #           blob-container-name: deployments
 
-#       - name: Package and Push to Octopus
-#         run: |
-#           octo pack --id="MyApp.Web" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./dist/" --outFolder="./packages" && \
-#           octo push --package="./packages/MyApp.Web.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}"
+      - name: Package and Push to Octopus
+        run: |
+          octo pack --id="MyApp.Web" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./dist/" --outFolder="./packages" && \
+          octo push --package="./packages/MyApp.Web.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}"
 
-#       - name: Create and Deploy Release
-#         run: octo create-release --project="$OCTOPUS_PROJECT_NAME" --packageVersion="$PACKAGE_VERSION" --releaseNumber="$PACKAGE_VERSION" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
+      - name: Create and Deploy Release
+        run: octo create-release --project="$OCTOPUS_PROJECT_NAME" --packageVersion="$PACKAGE_VERSION" --releaseNumber="$PACKAGE_VERSION" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
