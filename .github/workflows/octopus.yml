@@ -58,8 +58,8 @@ jobs:
       - name: Create Deployment Directory
         run: mkdir /tmp/deployments
              
-      - name: List Releases
-        run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
+#       - name: List Releases
+#         run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
 
 #       - name: Azure Storage Action
 #         uses: lauchacarro/Azure-Storage-Action@v1.1
