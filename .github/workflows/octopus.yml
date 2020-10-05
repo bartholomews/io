@@ -22,12 +22,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Yarn install
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - name: GitHub Action for Yarn
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
-          
+
 #       - name: Yarn audit
 #       - uses: borales/actions-yarn@v2.0.0
 #         with:
