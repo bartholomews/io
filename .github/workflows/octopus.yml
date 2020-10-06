@@ -5,36 +5,36 @@ env:
   OCTOPUS_PROJECT_NAME: io
   OCTOPUS_SPACE_NAME: Default
   OCTOPUS_ENVIRONMENT_NAME: Production
-  
+
 on:
   push:
     branches: master
-    
+
 #   schedule:
 #     - cron: '0 0 * * *'
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Yarn install
         uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
 
-#       - name: Yarn audit
-#       - uses: borales/actions-yarn@v2.0.0
-#         with:
-#           cmd: audit
-  
+       - name: Yarn audit
+       - uses: borales/actions-yarn@v2.0.0
+         with:
+           cmd: audit
+
       - name: Yarn build
         uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: build
-    
+
       # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
       - name: Set version
         id: set-version
@@ -50,7 +50,7 @@ jobs:
              curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - &&
              sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" &&
              sudo apt update && sudo apt install octopuscli
-             
+
 #       - name: List Releases
 #         run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
 
@@ -64,7 +64,7 @@ jobs:
           octo push --package="./packages/dist.${PACKAGE_VERSION}.zip" \
           --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" \
           --overwrite-mode="OverwriteExisting"
-          
+
       - name: Create and Deploy Release
         run: |
           octo create-release --project="$OCTOPUS_PROJECT_NAME" \
