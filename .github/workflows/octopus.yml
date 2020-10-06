@@ -42,7 +42,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: dist-${PACKAGE_VERSION}
+          name: dist
           path: dist/
 
       - name: Install Octopus Command-Line Interface
@@ -68,6 +68,6 @@ jobs:
       - name: Create and Deploy Release
         run: |
           octo create-release --project="$OCTOPUS_PROJECT_NAME" \
-          --packageVersion="$PACKAGE_VERSION" --releaseNumber="${GITHUB_SHA}-${GITHUB_RUN_NUMBER}" \
+          --packageVersion="$PACKAGE_VERSION" --releaseNumber="${PACKAGE_VERSION}" \
           --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" \
           --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
