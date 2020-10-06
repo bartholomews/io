@@ -1,9 +1,5 @@
 name: Octopus Project
 
-# env:
-#   project: io
-#   server: https://bartholomews.octopus.app
-
 env:
   PACKAGE_PREFIX: 2020.1.1
   OCTOPUS_PROJECT_NAME: io
@@ -45,9 +41,11 @@ jobs:
           name: dist
           path: dist/
 
+      # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
       - name: Set version
         id: set-version
-        run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
+        run: echo "PACKAGE_VERSION=${PACKAGE_PREFIX}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+        # run: echo "::set-env name=PACKAGE_VERSION::$PACKAGE_PREFIX.$GITHUB_RUN_NUMBER"
 
       - name: Install Octopus Command-Line Interface
         run: sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https &&
@@ -55,23 +53,8 @@ jobs:
              sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" &&
              sudo apt update && sudo apt install octopuscli
              
-#       - name: Create Deployment Directory
-#         run: mkdir /tmp/deployments
-             
 #       - name: List Releases
 #         run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
-
-#       - name: Azure Storage Action
-#         uses: lauchacarro/Azure-Storage-Action@v1.1
-#         with:
-#           connection-string: ${{ secrets.StorageAccountConnectionString }}
-#           folder: /tmp/deployments
-#           blob-container-name: deployments
-
-#       - name: Package and Push to Octopus
-#         run: |
-#           octo pack --id="dist" --format="Zip" --version="$PACKAGE_VERSION" --basePath="./dist/" --outFolder="./packages" && \
-#           octo push --package="./packages/dist.${PACKAGE_VERSION}.zip" --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}"
 
       # https://octopus.com/docs/octopus-rest-api/octopus-cli/push
       - name: Package and Push to Octopus
