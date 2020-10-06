@@ -1,7 +1,7 @@
 # io 
 
 <p>
-    <a href="https://bartholomews.octopus.app/app#/Spaces-1/projects/io/deployments">
+    <a target="_blank" href="https://bartholomews.octopus.app/app#/Spaces-1/projects/io/deployments">
         <img src="https://raw.githubusercontent.com/bartholomews/io/master/octopus.png" 
             width="128" alt="octopus">
     </a>
