@@ -1,4 +1,4 @@
-name: Octopus Project
+name: Octopus Deploy
 
 env:
   PACKAGE_PREFIX: 2020.1.1
@@ -25,10 +25,10 @@ jobs:
         with:
           cmd: install
 
-       - name: Yarn audit
-       - uses: borales/actions-yarn@v2.0.0
-         with:
-           cmd: audit
+      - name: Yarn audit
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: audit
 
       - name: Yarn build
         uses: Borales/actions-yarn@v2.3.0
