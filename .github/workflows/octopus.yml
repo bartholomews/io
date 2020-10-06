@@ -1,6 +1,7 @@
 name: Octopus Project
 
 env:
+  PACKAGE_PREFIX: 2020.1.1
   OCTOPUS_PROJECT_NAME: io
   OCTOPUS_SPACE_NAME: Default
   OCTOPUS_ENVIRONMENT_NAME: Production
@@ -37,7 +38,7 @@ jobs:
       # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
       - name: Set version
         id: set-version
-        run: echo "PACKAGE_VERSION=${GITHUB_SHA}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+        run: echo "PACKAGE_VERSION=${PACKAGE_PREFIX}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v2
         with:
@@ -67,6 +68,6 @@ jobs:
       - name: Create and Deploy Release
         run: |
           octo create-release --project="$OCTOPUS_PROJECT_NAME" \
-          --packageVersion="$PACKAGE_VERSION" --releaseNumber="$PACKAGE_VERSION" \
+          --packageVersion="$PACKAGE_VERSION" --releaseNumber="${GITHUB_SHA}-${GITHUB_RUN_NUMBER}" \
           --server="${{ secrets.OCTOPUS_SERVER }}" --apiKey="${{ secrets.OCTOPUS_APIKEY }}" \
           --space="$OCTOPUS_SPACE_NAME" --deployTo="$OCTOPUS_ENVIRONMENT_NAME"
