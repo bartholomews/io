@@ -1,9 +1,11 @@
 # io 
-<a href="https://bartholomews.octopus.app/app#/Spaces-1/projects/io/deployments">
-    <img src="https://raw.githubusercontent.com/bartholomews/io/master/octopus.png" width="64" alt="octopus">
-</a>
 
-&nbsp;
+<p>
+    <a href="https://bartholomews.octopus.app/app#/Spaces-1/projects/io/deployments">
+        <img src="https://raw.githubusercontent.com/bartholomews/io/master/octopus.png" 
+            width="128" alt="octopus">
+    </a>
+</p>
 
 ```
 yarn install
