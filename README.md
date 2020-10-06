@@ -1,8 +1,10 @@
-# io
+# io 
+<a href="https://bartholomews.octopus.app/app#/Spaces-1/projects/io/deployments">
+    <img src="https://raw.githubusercontent.com/bartholomews/io/master/octopus.png" width="64" alt="octopus">
+</a>
 
-[![Codeship Status for bartholomews/io](https://app.codeship.com/projects/b166e5d0-96ca-0137-256a-26fbbac5210e/status?branch=master)](https://app.codeship.com/projects/357513)
+&nbsp;
 
-## Project setup
 ```
 yarn install
 ```
