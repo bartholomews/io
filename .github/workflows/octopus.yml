@@ -46,14 +46,15 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Install Octopus Command-Line Interface
-        run: sudo apt update && sudo apt install --no-install-recommends gnupg curl ca-certificates apt-transport-https &&
-             curl -sSfL https://apt.octopus.com/public.key | sudo apt-key add - &&
-             sudo sh -c "echo deb https://apt.octopus.com/ stable main > /etc/apt/sources.list.d/octopus.com.list" &&
-             sudo apt update && sudo apt install octopuscli
+      - name: Install Octopus CLI 🐙
+        uses: OctopusDeploy/install-octopus-cli-action@v1.1.6
+        with:
+          version: latest
 
-#       - name: List Releases
-#         run: octo list-deployments --project=${{ env.project }} --server=${{ secrets.OCTOPUS_SERVER }} --apiKey=${{ secrets.OCTOPUS_APIKEY }} >> /tmp/deployments/deployments.txt
+      - name: list-octopusdeploy-deployments
+        run: >
+          octo list-deployments --server=${{ secrets.OCTOPUS_SERVER }}
+          --apiKey=${{ secrets.OCTOPUS_APIKEY }}
 
       # https://octopus.com/docs/octopus-rest-api/octopus-cli/push
       - name: Package and Push to Octopus
