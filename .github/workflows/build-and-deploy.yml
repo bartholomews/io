@@ -10,31 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Yarn install
-        uses: Borales/actions-yarn@v4
-        with:
-          cmd: install
-
-      #      - name:Yarn audit
-      #        uses: borales/actions-yarn@v2.0.0
-      #        with:
-      #          cmd: audit
-
-      - name: Yarn build
-        uses: Borales/actions-yarn@v4
-        with:
-          cmd: build
-
-      # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
-      - name: Set version
-        id: set-version
-        run: echo "PACKAGE_VERSION=${PACKAGE_PREFIX}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist/
-
       - name: Install OpenVPN
         run: |
           sudo apt update
@@ -49,8 +24,6 @@ jobs:
           config_file: .github/workflows/client.ovpn
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
-          #client_key: ${{ secrets.OVPN_CLIENT_KEY }}
-          #tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
 
       - name: Check if connected
         run: curl ifconfig.me
@@ -64,7 +37,3 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: whoami
-
-      #      - name: Build something
-      #         run: ./gradlew clean build
-      # The openvpn process is automatically terminated in post-action phase
