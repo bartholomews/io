@@ -55,6 +55,15 @@ jobs:
       - name: Check if connected
         run: curl ifconfig.me
 
+      - name: ssh
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: whoami
+
       #      - name: Build something
       #         run: ./gradlew clean build
       # The openvpn process is automatically terminated in post-action phase
