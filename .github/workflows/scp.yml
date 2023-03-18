@@ -34,6 +34,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: "bartholomews.io"
+          source: "index.html,assets"
           target: "/var/www/bartholomews.io"
           overwrite: true
