@@ -15,9 +15,6 @@ jobs:
           sudo apt update
           sudo apt install -y openvpn openvpn-systemd-resolved
 
-      - name: Check IP
-        run: curl ifconfig.me
-
       - name: Connect to VPN
         uses: "kota65535/github-openvpn-connect-action@v2"
         with:
@@ -25,7 +22,7 @@ jobs:
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
 
-      - name: Check if connected
+      - name: Check VPN IP address
         run: curl ifconfig.me
 
       - name: ssh
@@ -37,4 +34,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "www"
-          target: "test"
+          target: "/var/www/bartholomews.io/test"
