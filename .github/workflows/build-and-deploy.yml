@@ -10,30 +10,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      #      - name: Yarn install
-      #        uses: Borales/actions-yarn@v4
-      #        with:
-      #          cmd: install
+      - name: Yarn install
+        uses: Borales/actions-yarn@v4
+        with:
+          cmd: install
 
       #      - name:Yarn audit
       #        uses: borales/actions-yarn@v2.0.0
       #        with:
       #          cmd: audit
 
-      #      - name: Yarn build
-      #        uses: Borales/actions-yarn@v4
-      #        with:
-      #          cmd: build
+      - name: Yarn build
+        uses: Borales/actions-yarn@v4
+        with:
+          cmd: build
 
       # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
       - name: Set version
         id: set-version
         run: echo "PACKAGE_VERSION=${PACKAGE_PREFIX}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
 
-      #      - uses: actions/upload-artifact@v3
-      #        with:
-      #          name: dist
-      #          path: dist/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
 
       - name: Install OpenVPN
         run: |
