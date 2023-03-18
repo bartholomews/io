@@ -33,5 +33,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: "www/index.html,www/assets"
+          source: "bartholomews.io"
           target: "/var/www/bartholomews.io/test"
