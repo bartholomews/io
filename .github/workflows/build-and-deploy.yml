@@ -23,7 +23,7 @@ jobs:
       - name: Yarn build
         uses: Borales/actions-yarn@v4
         with:
-          cmd: build:prod
+          cmd: build
 
       # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
       - name: Set version
