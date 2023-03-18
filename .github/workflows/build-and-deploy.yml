@@ -29,11 +29,12 @@ jobs:
         run: curl ifconfig.me
 
       - name: ssh
-        uses: appleboy/ssh-action@v0.1.8
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: whoami
+          source: "www"
+          target: "test"
