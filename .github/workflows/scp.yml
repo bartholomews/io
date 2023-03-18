@@ -36,4 +36,4 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "bartholomews.io"
           target: "/var/www/bartholomews.io"
-          rm: true
+          overwrite: true
