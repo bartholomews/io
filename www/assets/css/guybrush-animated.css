@@ -1,6 +1,6 @@
 @keyframes slideFromTop {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(-120%);
     }
     20% {
         transform: translateY(-100%);
@@ -12,7 +12,7 @@
 
 @-webkit-keyframes slideFromTop {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(-120%);
     }
     20% {
         transform: translateY(-100%);
