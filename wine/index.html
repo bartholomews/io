@@ -698,5 +698,17 @@
   </div>
 </details>
 
+<script>
+const KEY = 'wine-details-' + location.pathname;
+const all = document.querySelectorAll('details.section');
+const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+all.forEach((d, i) => { if (i in saved) d.open = saved[i]; });
+document.addEventListener('toggle', e => {
+  if (!e.target.matches('details.section')) return;
+  const state = {};
+  all.forEach((d, i) => state[i] = d.open);
+  localStorage.setItem(KEY, JSON.stringify(state));
+}, true);
+</script>
 </body>
 </html>

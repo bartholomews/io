@@ -868,5 +868,17 @@
   <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
 </div></div>
 </details>
+<script>
+const KEY = 'wine-details-' + location.pathname;
+const all = document.querySelectorAll('details');
+const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+all.forEach((d, i) => { if (i in saved) d.open = saved[i]; });
+document.addEventListener('toggle', e => {
+  if (!e.target.matches('details')) return;
+  const state = {};
+  all.forEach((d, i) => state[i] = d.open);
+  localStorage.setItem(KEY, JSON.stringify(state));
+}, true);
+</script>
 </body>
 </html>
