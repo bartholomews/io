@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSET L2 – Region & Grape Study Map</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #1a1a2e; color: #e0e0e0; }
+  h1 { color: #fff; border-bottom: 2px solid #444; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #ccc; margin: 0; display: inline; font-size: 22px; }
+
+  .legend { margin-bottom: 24px; font-size: 15px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .climate-tag { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13px; font-weight: 600; color: #fff; margin-right: 4px; }
+  .influence { color: #999; font-size: 13px; font-style: italic; }
+
+  .grape { display: inline-block; padding: 3px 10px; margin: 2px; border-radius: 4px; font-size: 14px; text-decoration: none; }
+  .grape-normal { background: #2a3a2a; color: #8fbc8f; }
+  .grape-normal:hover { background: #3a4a3a; }
+  .grape-key { background: #4a3a1a; color: #ffd700; font-weight: 700; border: 1px solid #ffd700; }
+  .grape-key:hover { background: #5a4a2a; }
+
+  /* Appellations */
+  .appellations { padding: 4px 0 4px 18px; border-left: 2px solid #2a2a4a; margin: 2px 0; }
+  .appellation { display: inline-block; background: #2a2a4a; padding: 2px 8px; margin: 2px; border-radius: 4px; font-size: 13px; color: #aac; }
+  .app-grapes { font-size: 11px; color: #888; }
+  .app-grape { color: #8fbc8f; text-decoration: none; }
+  .app-grape:hover { text-decoration: underline; }
+  .country-appellations { margin: 4px 0 4px 20px; }
+
+  /* Country level */
+  details.country { margin-bottom: 24px; border: 1px solid #333; border-radius: 8px; padding: 12px; background: #1e1e36; }
+  details.country > summary { cursor: pointer; list-style: none; }
+  details.country > summary::-webkit-details-marker { display: none; }
+  details.country > summary::before { content: "▶ "; color: #666; font-size: 14px; }
+  details.country[open] > summary::before { content: "▼ "; }
+  .country-grapes { margin: 8px 0 4px 20px; }
+  .country-children { margin-left: 8px; }
+
+  /* Region level */
+  details.region { margin: 4px 0; padding: 4px 0 4px 16px; border-left: 2px solid #333; }
+  details.region > summary { cursor: pointer; list-style: none; padding: 4px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  details.region > summary::-webkit-details-marker { display: none; }
+  details.region > summary::before { content: "▶"; color: #555; font-size: 10px; flex-shrink: 0; width: 14px; display: inline-block; }
+  details.region[open] > summary::before { content: "▼"; }
+  .region-children { margin-left: 4px; }
+
+  /* Leaf region (no children) — align with collapsible siblings */
+  .region.leaf { padding: 4px 0 4px 16px; border-left: 2px solid #333; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .region.leaf::before { content: "─"; color: #555; font-size: 10px; flex-shrink: 0; width: 14px; display: inline-block; }
+
+  .region-name { font-weight: 600; color: #ddd; font-size: 15px; white-space: nowrap; }
+  .region-meta { font-size: 14px; }
+  .region-grapes { font-size: 14px; }
+
+  /* Depth shading */
+  .depth-0 { }
+  .depth-1 { border-left-color: #444; }
+  .depth-2 { border-left-color: #555; }
+  .depth-3 { border-left-color: #666; }
+</style>
+</head>
+<body>
+<nav style="display:flex;gap:16px;padding:8px 0 16px;border-bottom:1px solid #333;margin-bottom:16px;font-size:14px;">
+  <a href="/wine/" style="color:#888;text-decoration:none;">Reference</a>
+  <a href="/wine/grapes.html" style="color:#888;text-decoration:none;">Grapes</a>
+  <a href="/wine/regions.html" style="color:#60a5fa;text-decoration:none;font-weight:700;">Regions</a>
+</nav>
+<h1>WSET L2 – Region & Grape Study Map</h1>
+<div class="legend">
+  <span><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  <span><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+  <span><span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span><span class="grape grape-key">★ key region</span></span>
+  <span><span class="grape grape-normal">grape</span></span>
+</div>
+
+<details class="country" open>
+  <summary><h2>Argentina</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Malbec" class="grape grape-key">★ Malbec</a></div>
+  
+  <div class="country-children">
+<div class="region leaf depth-0">
+  <span class="region-name">Mendoza</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Malbec" class="grape grape-normal">Malbec</a></span>
+</div></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Australia</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Syrah_Shiraz" class="grape grape-key">★ Syrah/Shiraz</a> <a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a> <a href="grape_map.html#Sémillon_Semillon" class="grape grape-normal">Sémillon/Semillon</a></div>
+  <div class="country-appellations"><div class="appellations"><span class="appellation">South Eastern Australia <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>, <a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span></div></div>
+  <div class="country-children">
+<div class="region leaf depth-0">
+  <span class="region-name">Adelaide Hills</span>
+  <span class="region-meta"><span class="influence">❄ altitude</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Sauvignon_Blanc" class="grape grape-key">★ Sauvignon Blanc</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Clare Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ higher altitude</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Coonawarra</span>
+  <span class="region-meta"><span class="influence">❄ cloud cover</span>, <span class="influence">❄ cooling breezes</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Eden Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ higher altitude</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Hunter Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span> &nbsp; <span class="influence">❄ high cloud cover</span>, <span class="influence">❄ sea breezes</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Sémillon_Semillon" class="grape grape-normal">Sémillon/Semillon</a> <a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Margaret River</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span> &nbsp; <span class="influence">❄ cooling sea breezes</span>, <span class="influence">❄ winter rainfall</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Mornington Peninsula</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ cooling breezes from the Southern Ocean</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">South Australia</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Barossa Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a> <a href="grape_map.html#Sémillon_Semillon" class="grape grape-normal">Sémillon/Semillon</a> <a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">McLaren Vale</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a></span>
+</div></div>
+</details>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Yarra Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ ocean currents</span>, <span class="influence">❄ cooling breezes from the Southern Ocean</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Chile</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-key">★ Cabernet Sauvignon</a> <a href="grape_map.html#Carmenère" class="grape grape-key">★ Carmenère</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></div>
+  
+  <div class="country-children">
+<div class="region leaf depth-0">
+  <span class="region-name">Casablanca Valley</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ sea breezes</span>, <span class="influence">❄ morning fogs</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+</div>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Central Valley</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span> &nbsp; <span class="influence">❄ altitude</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Carmenère" class="grape grape-normal">Carmenère</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Colchagua Valley</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Maipo Valley</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>France</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Chenin_Blanc" class="grape grape-normal">Chenin Blanc</a> <a href="grape_map.html#Gamay" class="grape grape-normal">Gamay</a> <a href="grape_map.html#Gewurztraminer" class="grape grape-normal">Gewurztraminer</a> <a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="grape grape-normal">Pinot Grigio/Pinot Gris</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a> <a href="grape_map.html#Sémillon_Semillon" class="grape grape-normal">Sémillon/Semillon</a> <a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a> <a href="grape_map.html#Viognier" class="grape grape-normal">Viognier</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Alsace</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> &nbsp; <span class="influence">☀ sheltered from rain-bearing westerly winds by Vosges mountains</span>, <span class="influence">☀ dry and sunny conditions</span>, <span class="influence">☀ mountain foothills facing east or south-east benefit from the morning sun</span>, <span class="influence">☀ dry autumns extend the period over which the grapes can ripen</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Gewurztraminer" class="grape grape-normal">Gewurztraminer</a> <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="grape grape-normal">Pinot Grigio/Pinot Gris</a> <a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Alsace AOC <span class="app-grapes">(<a href="grape_map.html#Gewurztraminer" class="app-grape">Gewurztraminer</a>, <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="app-grape">Pinot Grigio/Pinot Gris</a>, <a href="grape_map.html#Riesling" class="app-grape">Riesling</a>)</span></span> <span class="appellation">Alsace Grand Cru <span class="app-grapes">(<a href="grape_map.html#Gewurztraminer" class="app-grape">Gewurztraminer</a>, <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="app-grape">Pinot Grigio/Pinot Gris</a>, <a href="grape_map.html#Riesling" class="app-grape">Riesling</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Beaujolais</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Gamay" class="grape grape-key">★ Gamay</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Beaujolais AOC <span class="app-grapes">(<a href="grape_map.html#Gamay" class="app-grape">Gamay</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Beaujolais Villages</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Beaujolais Villages AOC <span class="app-grapes">(<a href="grape_map.html#Gamay" class="app-grape">Gamay</a>)</span></span> <span class="appellation">Fleurie AOC <span class="app-grapes">(<a href="grape_map.html#Gamay" class="app-grape">Gamay</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Bordeaux</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a> <a href="grape_map.html#Sémillon_Semillon" class="grape grape-normal">Sémillon/Semillon</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Bordeaux AOC <span class="app-grapes">(<a href="grape_map.html#Merlot" class="app-grape">Merlot</a>, <a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>, <a href="grape_map.html#Sémillon_Semillon" class="app-grape">Sémillon/Semillon</a>)</span></span> <span class="appellation">Bordeaux Supérieur AOC <span class="app-grapes">(<a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Bordeaux (Left Bank)</span>
+    <span class="region-meta"><span class="influence">❄ maritime</span>, <span class="influence">❄ heavy rainfall</span>, <span class="influence">☀ gravel</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-key">★ Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+  </summary>
+  
+  <div class="region-children">
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Graves</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Graves AOC <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>, <a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>)</span></span> <span class="appellation">Pessac-Léognan AOC <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>, <a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Médoc</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Haut-Médoc AOC <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>)</span></span> <span class="appellation">Margaux AOC <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span> <span class="appellation">Pauillac AOC <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Sauternes</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Sémillon_Semillon" class="grape grape-key">★ Sémillon/Semillon</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Sauternes AOC <span class="app-grapes">(<a href="grape_map.html#Sémillon_Semillon" class="app-grape">Sémillon/Semillon</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Bordeaux (Right Bank)</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Merlot" class="grape grape-key">★ Merlot</a></span>
+  </summary>
+  
+  <div class="region-children">
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Pomerol</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Pomerol AOC <span class="app-grapes">(<a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Saint-Émilion</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Saint-Émilion AOC <span class="app-grapes">(<a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span> <span class="appellation">Saint-Émilion Gran Cru AOC <span class="app-grapes">(<a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Burgundy</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-key">★ Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-key">★ Pinot Noir</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Bourgogne AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>, <a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span> <span class="appellation">Clos Saint-Jacques <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span> <span class="appellation">Le Chambertin <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Chablis</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Chablis AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Côte d'Or</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    
+  </summary>
+  
+  <div class="region-children">
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Côte de Beaune</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Beaune AOC <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span> <span class="appellation">Meursault AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>)</span></span> <span class="appellation">Pommard AOC <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span> <span class="appellation">Puligny-Montrachet AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Côte de Nuits</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Gevrey-Chambertin AOC <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span> <span class="appellation">Nuits-Saint-Georges AOC <span class="app-grapes">(<a href="grape_map.html#Pinot_Noir" class="app-grape">Pinot Noir</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Mâconnais</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Mâcon AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>)</span></span> <span class="appellation">Pouilly-Fuissé AOC <span class="app-grapes">(<a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Champagne</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Champagne AOC <span class="app-grapes">()</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Languedoc-Roussillon</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a> <a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Minervois AOC <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>, <a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span> <span class="appellation">Pays d'Oc IGP <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>, <a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>, <a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Loire Valley</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Chenin_Blanc" class="grape grape-key">★ Chenin Blanc</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-key">★ Sauvignon Blanc</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Pouilly-Fumé AOC <span class="app-grapes">(<a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>)</span></span> <span class="appellation">Sancerre AOC <span class="app-grapes">(<a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>)</span></span> <span class="appellation">Touraine AOC <span class="app-grapes">(<a href="grape_map.html#Sauvignon_Blanc" class="app-grape">Sauvignon Blanc</a>)</span></span> <span class="appellation">Vouvray AOC <span class="app-grapes">(<a href="grape_map.html#Chenin_Blanc" class="app-grape">Chenin Blanc</a>)</span></span></div>
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Pouilly-Fumé</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Sancerre</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Touraine</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Provence</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Côtes de Provence AOC <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Rhône Valley</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Côtes du Rhône AOC <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span> <span class="appellation">Côtes du Rhône Villages AOC <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Northern Rhône</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">☀ aspect</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Syrah_Shiraz" class="grape grape-key">★ Syrah/Shiraz</a> <a href="grape_map.html#Viognier" class="grape grape-normal">Viognier</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Condrieu AOC <span class="app-grapes">(<a href="grape_map.html#Viognier" class="app-grape">Viognier</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Côte Rôtie</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Côte Rôtie AOC <span class="app-grapes">(<a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Crozes-Hermitage</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Crozes-Hermitage AOC <span class="app-grapes">(<a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Hermitage</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Syrah_Shiraz" class="grape grape-normal">Syrah/Shiraz</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Hermitage AOC <span class="app-grapes">(<a href="grape_map.html#Syrah_Shiraz" class="app-grape">Syrah/Shiraz</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Southern Rhône</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span> &nbsp; <span class="influence">☀ southerly latitude</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a></span>
+  </summary>
+  
+  <div class="region-children">
+<details class="region depth-2" open>
+  <summary>
+    <span class="region-name">Châteauneuf-du-Pape</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span> &nbsp; <span class="influence">☀ large, round stones that absorb heat during the day and radiate it back into the vines at night</span></span>
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Châteauneuf-du-Pape AOC <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Germany</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Riesling" class="grape grape-key">★ Riesling</a></div>
+  <div class="country-appellations"><div class="appellations"><span class="appellation">Landwein <span class="app-grapes">()</span></span> <span class="appellation">Prädikatswein <span class="app-grapes">()</span></span> <span class="appellation">Qualitätswein <span class="app-grapes">()</span></span></div></div>
+  <div class="country-children">
+<div class="region leaf depth-0">
+  <span class="region-name">Mosel</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> &nbsp; <span class="influence">☀ steep slate slopes</span>, <span class="influence">☀ southerly aspect of the banks of the Mosel River, with stony soils and reflected sunlight</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Pfalz</span>
+  <span class="region-meta"><span class="influence">☀ protected by mountains to the west</span>, <span class="influence">☀ dry, sunny climate</span>, <span class="influence">☀ climatically an extension of France's Alsace region</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Rheingau</span>
+  <span class="region-meta"><span class="influence">☀ steep, south-facing slopes on the north bank of the River Rhine</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Riesling" class="grape grape-normal">Riesling</a></span>
+</div></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Hungary</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Furmint" class="grape grape-normal">Furmint</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Tokaj</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Furmint" class="grape grape-key">★ Furmint</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Tokaji Aszú <span class="app-grapes">(<a href="grape_map.html#Furmint" class="app-grape">Furmint</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Italy</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Barbera" class="grape grape-normal">Barbera</a> <a href="grape_map.html#Cortese" class="grape grape-normal">Cortese</a> <a href="grape_map.html#Corvina" class="grape grape-normal">Corvina</a> <a href="grape_map.html#Fiano" class="grape grape-normal">Fiano</a> <a href="grape_map.html#Garganega" class="grape grape-normal">Garganega</a> <a href="grape_map.html#Glera" class="grape grape-normal">Glera</a> <a href="grape_map.html#Montepulciano" class="grape grape-normal">Montepulciano</a> <a href="grape_map.html#Moscato_Muscat" class="grape grape-normal">Moscato/Muscat</a> <a href="grape_map.html#Nebbiolo" class="grape grape-normal">Nebbiolo</a> <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="grape grape-normal">Pinot Grigio/Pinot Gris</a> <a href="grape_map.html#Sangiovese" class="grape grape-normal">Sangiovese</a> <a href="grape_map.html#Verdicchio" class="grape grape-normal">Verdicchio</a> <a href="grape_map.html#Zinfandel_Primitivo" class="grape grape-normal">Zinfandel/Primitivo</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Abruzzo</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Montepulciano" class="grape grape-normal">Montepulciano</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Montepulciano d'Abruzzo DOC <span class="app-grapes">(<a href="grape_map.html#Montepulciano" class="app-grape">Montepulciano</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Campania</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Fiano" class="grape grape-key">★ Fiano</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Fiano di Avellino DOCG <span class="app-grapes">(<a href="grape_map.html#Fiano" class="app-grape">Fiano</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Friuli-Venezia Giulia</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="grape grape-normal">Pinot Grigio/Pinot Gris</a></span>
+</div>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Marche</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Verdicchio" class="grape grape-key">★ Verdicchio</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Verdicchio dei Castelli di Jesi DOC <span class="app-grapes">(<a href="grape_map.html#Verdicchio" class="app-grape">Verdicchio</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Piemonte</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">☀ protection from Alps to the north</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Nebbiolo" class="grape grape-key">★ Nebbiolo</a> <a href="grape_map.html#Barbera" class="grape grape-normal">Barbera</a> <a href="grape_map.html#Cortese" class="grape grape-normal">Cortese</a> <a href="grape_map.html#Moscato_Muscat" class="grape grape-normal">Moscato/Muscat</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Asti DOCG <span class="app-grapes">(<a href="grape_map.html#Moscato_Muscat" class="app-grape">Moscato/Muscat</a>)</span></span> <span class="appellation">Barbaresco DOCG <span class="app-grapes">(<a href="grape_map.html#Nebbiolo" class="app-grape">Nebbiolo</a>)</span></span> <span class="appellation">Barbera d'Asti DOCG <span class="app-grapes">(<a href="grape_map.html#Barbera" class="app-grape">Barbera</a>)</span></span> <span class="appellation">Barolo DOCG <span class="app-grapes">(<a href="grape_map.html#Nebbiolo" class="app-grape">Nebbiolo</a>)</span></span> <span class="appellation">Gavi DOCG <span class="app-grapes">(<a href="grape_map.html#Cortese" class="app-grape">Cortese</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Puglia</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Zinfandel_Primitivo" class="grape grape-normal">Zinfandel/Primitivo</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Primitivo IGT <span class="app-grapes">(<a href="grape_map.html#Zinfandel_Primitivo" class="app-grape">Zinfandel/Primitivo</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Toscana</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Sangiovese" class="grape grape-normal">Sangiovese</a></span>
+  </summary>
+  
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Chianti</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Sangiovese" class="grape grape-key">★ Sangiovese</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Chianti Classico DOCG <span class="app-grapes">(<a href="grape_map.html#Sangiovese" class="app-grape">Sangiovese</a>)</span></span> <span class="appellation">Chianti Classico DOCG Riserva <span class="app-grapes">(<a href="grape_map.html#Sangiovese" class="app-grape">Sangiovese</a>)</span></span> <span class="appellation">Chianti DOCG <span class="app-grapes">(<a href="grape_map.html#Sangiovese" class="app-grape">Sangiovese</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Montalcino</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Sangiovese" class="grape grape-normal">Sangiovese</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Brunello di Montalcino DOCG <span class="app-grapes">(<a href="grape_map.html#Sangiovese" class="app-grape">Sangiovese</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Veneto</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">☀ protection from Alps to the north</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Garganega" class="grape grape-normal">Garganega</a> <a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="grape grape-normal">Pinot Grigio/Pinot Gris</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Amarone della Valpolicella DOCG <span class="app-grapes">(<a href="grape_map.html#Corvina" class="app-grape">Corvina</a>)</span></span> <span class="appellation">delle Venezie DOC <span class="app-grapes">(<a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="app-grape">Pinot Grigio/Pinot Gris</a>)</span></span> <span class="appellation">Recioto della Valpolicella DOCG <span class="app-grapes">(<a href="grape_map.html#Corvina" class="app-grape">Corvina</a>)</span></span> <span class="appellation">Valpolicella DOC <span class="app-grapes">(<a href="grape_map.html#Corvina" class="app-grape">Corvina</a>)</span></span> <span class="appellation">Valpolicella DOC Classico <span class="app-grapes">(<a href="grape_map.html#Corvina" class="app-grape">Corvina</a>)</span></span> <span class="appellation">Veneto IGT <span class="app-grapes">(<a href="grape_map.html#Pinot_Grigio_Pinot_Gris" class="app-grape">Pinot Grigio/Pinot Gris</a>)</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Soave</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Garganega" class="grape grape-key">★ Garganega</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Recioto di Soave DOCG <span class="app-grapes">(<a href="grape_map.html#Garganega" class="app-grape">Garganega</a>)</span></span> <span class="appellation">Soave DOC <span class="app-grapes">(<a href="grape_map.html#Garganega" class="app-grape">Garganega</a>)</span></span> <span class="appellation">Soave DOC Classico <span class="app-grapes">(<a href="grape_map.html#Garganega" class="app-grape">Garganega</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Valpolicella</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Corvina" class="grape grape-key">★ Corvina</a></span>
+</div></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>New Zealand</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">North Island</span>
+    
+    
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Hawke's Bay</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-key">★ Chardonnay</a> <a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Martinborough</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">South Island</span>
+    
+    
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Central Otago</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> &nbsp; <span class="influence">☀ protected from sea breezes and rains by a ring of mountains</span>, <span class="influence">☀ intensely sunny days</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Marlborough</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#4a90d9">cool</span> &nbsp; <span class="influence">❄ ocean</span>, <span class="influence">❄ sea breezes</span>, <span class="influence">❄ rainfall</span>, <span class="influence">☀ sunny</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Sauvignon_Blanc" class="grape grape-key">★ Sauvignon Blanc</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>South Africa</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Chenin_Blanc" class="grape grape-key">★ Chenin Blanc</a> <a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Pinotage" class="grape grape-normal">Pinotage</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></div>
+  
+  <div class="country-children">
+<div class="region leaf depth-0">
+  <span class="region-name">Constantia</span>
+  <span class="region-meta"><span class="influence">❄ strong southerly sea breezes</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Elgin</span>
+  <span class="region-meta"><span class="influence">❄ altitude</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Stellenbosch</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a></span>
+</div>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Walker Bay</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ strong southerly sea breezes</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Western Cape</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinotage" class="grape grape-normal">Pinotage</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Western Cape <span class="app-grapes">(<a href="grape_map.html#Chenin_Blanc" class="app-grape">Chenin Blanc</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>Spain</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Albariño" class="grape grape-normal">Albariño</a> <a href="grape_map.html#Grenache_Garnacha" class="grape grape-normal">Grenache/Garnacha</a> <a href="grape_map.html#Tempranillo" class="grape grape-normal">Tempranillo</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Catalunya</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Tempranillo" class="grape grape-normal">Tempranillo</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Catalunya DO <span class="app-grapes">(<a href="grape_map.html#Tempranillo" class="app-grape">Tempranillo</a>)</span></span> <span class="appellation">Cava <span class="app-grapes">()</span></span></div>
+  <div class="region-children">
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Priorat</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Priorat DOCa <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Galicia</span>
+    
+    
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Rías Baixas DO</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Albariño" class="grape grape-normal">Albariño</a></span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Navarra</span>
+    
+    
+  </summary>
+  <div class="appellations"><span class="appellation">Navarra DO <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Ribera del Duero</span>
+    <span class="region-meta"><span class="influence">❄ high altitude</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Tempranillo" class="grape grape-normal">Tempranillo</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Ribera del Duero DO <span class="app-grapes">(<a href="grape_map.html#Tempranillo" class="app-grape">Tempranillo</a>)</span></span></div>
+  <div class="region-children"></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">Rioja</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Tempranillo" class="grape grape-key">★ Tempranillo</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">Rioja DOCa <span class="app-grapes">(<a href="grape_map.html#Grenache_Garnacha" class="app-grape">Grenache/Garnacha</a>, <a href="grape_map.html#Tempranillo" class="app-grape">Tempranillo</a>)</span></span></div>
+  <div class="region-children"></div>
+</details></div>
+</details>
+
+<details class="country" open>
+  <summary><h2>USA</h2></summary>
+  <div class="country-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a> <a href="grape_map.html#Zinfandel_Primitivo" class="grape grape-normal">Zinfandel/Primitivo</a></div>
+  
+  <div class="country-children">
+<details class="region depth-0" open>
+  <summary>
+    <span class="region-name">California</span>
+    
+    <span class="region-grapes"><a href="grape_map.html#Zinfandel_Primitivo" class="grape grape-key">★ Zinfandel/Primitivo</a> <a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+  </summary>
+  <div class="appellations"><span class="appellation">California <span class="app-grapes">(<a href="grape_map.html#Cabernet_Sauvignon" class="app-grape">Cabernet Sauvignon</a>, <a href="grape_map.html#Chardonnay" class="app-grape">Chardonnay</a>, <a href="grape_map.html#Merlot" class="app-grape">Merlot</a>)</span></span></div>
+  <div class="region-children">
+<div class="region leaf depth-1">
+  <span class="region-name">Los Carneros</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ morning fogs from San Pablo Bay</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div>
+
+<details class="region depth-1" open>
+  <summary>
+    <span class="region-name">Napa Valley</span>
+    <span class="region-meta"><span class="climate-tag" style="background:#d0021b">warm</span></span>
+    <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-key">★ Chardonnay</a> <a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Sauvignon_Blanc" class="grape grape-normal">Sauvignon Blanc</a></span>
+  </summary>
+  
+  <div class="region-children">
+<div class="region leaf depth-2">
+  <span class="region-name">Calistoga</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name">Oakville</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name">Rutherford</span>
+  
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a></span>
+</div></div>
+</details>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Santa Barbara County</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ sea breezes from the west and south</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name">Sonoma</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ Pacific Ocean breezes</span>, <span class="influence">☀ inland</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Cabernet_Sauvignon" class="grape grape-normal">Cabernet Sauvignon</a> <a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Merlot" class="grape grape-normal">Merlot</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div></div>
+</details>
+
+<div class="region leaf depth-0">
+  <span class="region-name">Oregon</span>
+  <span class="region-meta"><span class="climate-tag" style="background:#f5a623">moderate</span> &nbsp; <span class="influence">❄ northerly latitude</span>, <span class="influence">❄ exposure to the Pacific Ocean</span></span>
+  <span class="region-grapes"><a href="grape_map.html#Chardonnay" class="grape grape-normal">Chardonnay</a> <a href="grape_map.html#Pinot_Noir" class="grape grape-normal">Pinot Noir</a></span>
+</div></div>
+</details>
+</body>
+</html>

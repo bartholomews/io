@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSET L2 – Grape Study Map</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #1a1a2e; color: #e0e0e0; }
+  h1 { color: #fff; border-bottom: 2px solid #444; padding-bottom: 10px; font-size: 24px; }
+  h2 { color: #ccc; margin: 0; display: inline; font-size: 21px; }
+
+  .legend { margin-bottom: 24px; font-size: 15px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .climate-tag { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13px; font-weight: 600; color: #fff; margin-right: 4px; }
+
+  .colour-badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-right: 4px; }
+  .colour-badge.black { background: #333; color: #c9a; border: 1px solid #666; }
+  .colour-badge.white { background: #dda; color: #333; border: 1px solid #aa8; }
+
+  /* Grape level */
+  details.grape { margin-bottom: 20px; border: 1px solid #333; border-radius: 8px; padding: 16px; background: #1e1e36; }
+  details.grape > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  details.grape > summary::-webkit-details-marker { display: none; }
+  details.grape > summary::before { content: "▶"; color: #666; font-size: 14px; width: 16px; display: inline-block; }
+  details.grape[open] > summary::before { content: "▼"; }
+  .grape-notes { margin: 10px 0 10px 24px; font-size: 14px; color: #999; }
+  .single-varietal { color: #7a9fbf; font-style: italic; }
+  .grape-regions { margin-left: 12px; }
+
+  /* Blending */
+  .blend-section { margin: 8px 0 8px 24px; padding: 8px 12px; background: #1a1a3a; border-left: 3px solid #5a4a8a; border-radius: 0 6px 6px 0; }
+  .blend-header { font-size: 13px; font-weight: 600; color: #aaa; display: block; margin-bottom: 4px; }
+  .blend-row { font-size: 13px; padding: 2px 0; }
+  .blend-region { color: #888; }
+  .blend-partner { color: #c9a0dc; text-decoration: none; }
+  .blend-partner:hover { text-decoration: underline; }
+  .blend-name { color: #888; font-style: italic; font-size: 12px; }
+
+  /* Region level */
+  details.region { margin: 4px 0; padding: 4px 0 4px 18px; border-left: 2px solid #333; }
+  details.region > summary { cursor: pointer; list-style: none; padding: 4px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+  details.region > summary::-webkit-details-marker { display: none; }
+  details.region > summary::before { content: "▶"; color: #555; font-size: 12px; flex-shrink: 0; width: 16px; display: inline-block; }
+  details.region[open] > summary::before { content: "▼"; }
+  .region-children { margin-left: 6px; }
+
+  .region.leaf { padding: 4px 0 4px 18px; border-left: 2px solid #333; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+  .region.leaf::before { content: "─"; color: #555; font-size: 12px; flex-shrink: 0; width: 16px; display: inline-block; }
+
+  .region-name { font-weight: 600; color: #ddd; font-size: 15px; white-space: nowrap; }
+  .region-name.key-region { color: #ffd700; }
+  .key-marker { margin-right: 4px; }
+
+  .depth-0 { border-left-color: #444; }
+  .depth-1 { border-left-color: #555; }
+  .depth-2 { border-left-color: #666; }
+  .depth-3 { border-left-color: #777; }
+
+  .appellations { font-size: 14px; color: #aaa; padding: 3px 0 3px 18px; border-left: 2px solid #333; }
+  .appellation { background: #2a2a4a; padding: 2px 8px; border-radius: 3px; font-size: 13px; }
+
+  .style-notes { font-size: 13px; color: #888; font-style: italic; }
+  .note { }
+</style>
+</head>
+<body>
+<nav style="display:flex;gap:16px;padding:8px 0 16px;border-bottom:1px solid #333;margin-bottom:16px;font-size:14px;">
+  <a href="/wine/" style="color:#888;text-decoration:none;">Reference</a>
+  <a href="/wine/grapes.html" style="color:#60a5fa;text-decoration:none;font-weight:700;">Grapes</a>
+  <a href="/wine/regions.html" style="color:#888;text-decoration:none;">Regions</a>
+</nav>
+<h1>WSET L2 – Grape Study Map</h1>
+<div class="legend">
+  <span><span class="colour-badge black">black</span> <span class="colour-badge white">white</span></span>
+  <span><span class="climate-tag" style="background:#4a90d9">cool</span></span>
+  <span><span class="climate-tag" style="background:#f5a623">moderate</span></span>
+  <span><span class="climate-tag" style="background:#d0021b">warm</span></span>
+  <span><span class="region-name key-region" style="color:#ffd700">★ key region</span></span>
+</div>
+
+<details class="grape" id="Albariño" open>
+  <summary>
+    <h2>Albariño</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Spain</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Rías Baixas DO</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Barbera" open>
+  <summary>
+    <h2>Barbera</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Piemonte</span><div class="style-notes"><span class="note">not intended for ageing</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Barbera d'Asti DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Cabernet_Sauvignon" open>
+  <summary>
+    <h2>Cabernet Sauvignon</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">thick skins</span> · <span class="note">in a moderate climate, it might struggle to ripen in all but the warmest sites</span> · <span class="note">need a long and warm growing season to ripen fully</span> · <span class="note">blending can help to soften the very high level of tannin and acidity</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Merlot" class="blend-partner">Merlot</a></div><div class="blend-row"><span class="blend-region">Chile → Central Valley:</span> <a href="#Carmenère" class="blend-partner">Carmenère</a>, <a href="#Merlot" class="blend-partner">Merlot</a></div><div class="blend-row"><span class="blend-region">South Africa → Stellenbosch:</span> <a href="#Merlot" class="blend-partner">Merlot</a>, <a href="#Pinotage" class="blend-partner">Pinotage</a> <span class="blend-name">(Cape Blend)</span></div><div class="blend-row"><span class="blend-region">Australia → Margaret River:</span> <a href="#Merlot" class="blend-partner">Merlot</a></div><div class="blend-row"><span class="blend-region">New Zealand → Hawke's Bay:</span> <a href="#Merlot" class="blend-partner">Merlot</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Coonawarra</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Margaret River</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Chile</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Central Valley</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Colchagua Valley</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Maipo Valley</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Bordeaux</span></summary>
+  <div class="region-children">
+
+<details class="region depth-2" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Bordeaux (Left Bank)</span></summary>
+  <div class="region-children">
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Graves</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Graves AOC</span>, <span class="appellation">Pessac-Léognan AOC</span></div></div>
+</details>
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Médoc</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Haut-Médoc AOC</span>, <span class="appellation">Margaux AOC</span>, <span class="appellation">Pauillac AOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Pays d'Oc IGP</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">New Zealand</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Hawke's Bay</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Stellenbosch</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">California</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">California</span></div>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Napa Valley</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-3">
+  <span class="region-name ">Calistoga</span>
+</div>
+
+<div class="region leaf depth-3">
+  <span class="region-name ">Oakville</span>
+</div>
+
+<div class="region leaf depth-3">
+  <span class="region-name ">Rutherford</span>
+</div></div>
+</details>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Sonoma</span>
+</div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Carmenère" open>
+  <summary>
+    <h2>Carmenère</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">native to Bordeaux but is rarely found there now</span> · <span class="note">need a long, sunny growing season to ripen successfully</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a>, <a href="#Merlot" class="blend-partner">Merlot</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Chile</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Central Valley</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Chardonnay" open>
+  <summary>
+    <h2>Chardonnay</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">Australia:</span> <a href="#Sémillon_Semillon" class="blend-partner">Sémillon/Semillon</a></div><div class="blend-row"><span class="blend-region">South Africa → Western Cape:</span> <a href="#Chenin_Blanc" class="blend-partner">Chenin Blanc</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">South Eastern Australia</span></div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Adelaide Hills</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Margaret River</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Yarra Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Chile</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Casablanca Valley</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Central Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Burgundy</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Bourgogne AOC</span>, <span class="appellation">Chablis AOC</span>, <span class="appellation">Meursault AOC</span>, <span class="appellation">Puligny-Montrachet AOC</span>, <span class="appellation">Mâcon AOC</span>, <span class="appellation">Pouilly-Fuissé AOC</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Pays d'Oc IGP</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">New Zealand</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name key-region"><span class="key-marker">★</span>Hawke's Bay</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Marlborough</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Walker Bay</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Western Cape</span><div class="style-notes"><span class="note">high-volume</span></div>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">California</span></summary>
+  <div class="region-children">
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Central Valley</span><div class="style-notes"><span class="note">high volume</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">California</span></div></div>
+</details>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Los Carneros</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name key-region"><span class="key-marker">★</span>Napa Valley</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Santa Barbara County</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Sonoma</span>
+</div></div>
+</details>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Oregon</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Chenin_Blanc" open>
+  <summary>
+    <h2>Chenin Blanc</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">versatile</span> · <span class="note">flavours vary according to ripeness</span> · <span class="note">suitable for late harvesting</span> · <span class="note">susceptible to botrytis/noble rot</span> · <span class="note">made in a very broad range of styles</span> · <span class="note">oaked and unoaked styles</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">South Africa:</span> <a href="#Chardonnay" class="blend-partner">Chardonnay</a>, <a href="#Viognier" class="blend-partner">Viognier</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Loire Valley</span><div class="style-notes"><span class="note">Demi-Sec (off-dry or medium styles)</span> · <span class="note">also produces sparkling wines</span> · <span class="note">off-dry or medium styles are labelled Demi-Sec</span> · <span class="note">typically unoaked to retain their fresh fruit characteristics</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Vouvray AOC</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>South Africa</span><div class="style-notes"><span class="note">South Africa's most planted white grape variety</span> · <span class="note">widely planted throughout many regions</span> · <span class="note">prized for its ability to retain high acidity in a warm climate</span> · <span class="note">Old vine</span> · <span class="note">inexpensive, high-volume brands labelled Western Cape</span> · <span class="note">grapes from warmer inland areas</span> · <span class="note">often blended with other varieties such as Chardonnay</span> · <span class="note">old vines that yield small quantities of concentrated fruit</span> · <span class="note">blended with Viognier to produce a refreshing, floral style</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Western Cape</span></div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Cortese" open>
+  <summary>
+    <h2>Cortese</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Piemonte</span><div class="style-notes"><span class="note">not intended for ageing</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Gavi DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Corvina" open>
+  <summary>
+    <h2>Corvina</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Valpolicella</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Valpolicella DOC</span>, <span class="appellation">Valpolicella DOC Classico</span>, <span class="appellation">Amarone della Valpolicella DOCG</span>, <span class="appellation">Recioto della Valpolicella DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Fiano" open>
+  <summary>
+    <h2>Fiano</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">not intended for ageing</span> · <span class="note">very good or outstanding examples can develop complex aromas</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Campania</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Fiano di Avellino DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Furmint" open>
+  <summary>
+    <h2>Furmint</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span>
+  </summary>
+  <div class="grape-notes"><span class="note">ideal for production of sweet wines</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Hungary</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Tokaj</span><div class="style-notes"><span class="note">often blended with other local varieties for aroma complexity</span> · <span class="note">Tokaj also produces dry and medium wines</span> · <span class="note">'Aszú' means nobly rot</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Tokaji Aszú</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Gamay" open>
+  <summary>
+    <h2>Gamay</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Beaujolais</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Beaujolais AOC</span>, <span class="appellation">Beaujolais Villages AOC</span>, <span class="appellation">Fleurie AOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Garganega" open>
+  <summary>
+    <h2>Garganega</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Veneto</span></summary>
+  <div class="region-children">
+
+<details class="region depth-2" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Soave</span><div class="style-notes"><span class="note">not intended for ageing</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Soave DOC</span>, <span class="appellation">Soave DOC Classico</span>, <span class="appellation">Recioto di Soave DOCG</span></div></div>
+</details></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Gewurztraminer" open>
+  <summary>
+    <h2>Gewurztraminer</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Alsace</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Alsace AOC</span>, <span class="appellation">Alsace Grand Cru</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Glera" open>
+  <summary>
+    <h2>Glera</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">Italy → Prosecco:</span> <a href="#Pinot_Noir" class="blend-partner">Pinot Noir</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Prosecco</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Grenache_Garnacha" open>
+  <summary>
+    <h2>Grenache/Garnacha</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">thin skin</span> · <span class="note">grapes typically have high levels of sugar and low acidity</span> · <span class="note">controlled yields</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">France → Southern Rhône:</span> <a href="#Syrah_Shiraz" class="blend-partner">Syrah/Shiraz</a></div><div class="blend-row"><span class="blend-region">France → Languedoc-Roussillon:</span> <a href="#Syrah_Shiraz" class="blend-partner">Syrah/Shiraz</a></div><div class="blend-row"><span class="blend-region">Australia:</span> <a href="#Syrah_Shiraz" class="blend-partner">Syrah/Shiraz</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span><div class="style-notes"><span class="note">concentrated</span> · <span class="note">high quality</span> · <span class="note">age-worthy</span> · <span class="note">similar style and quality of Châteauneuf-du-Pape AOC</span></div></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Barossa Valley</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">McLaren Vale</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Minervois AOC</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Provence</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Côtes de Provence AOC</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Southern Rhône</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Côtes du Rhône AOC</span>, <span class="appellation">Côtes du Rhône Villages AOC</span>, <span class="appellation">Châteauneuf-du-Pape AOC</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Spain</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Rioja DOCa</span>, <span class="appellation">Navarra DO</span>, <span class="appellation">Priorat DOCa</span></div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Malbec" open>
+  <summary>
+    <h2>Malbec</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">native to south-west France</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a>, <a href="#Merlot" class="blend-partner">Merlot</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Argentina</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Mendoza</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Merlot" open>
+  <summary>
+    <h2>Merlot</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">versatile</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a></div><div class="blend-row"><span class="blend-region">France → Bordeaux → Bordeaux (Left Bank):</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a></div><div class="blend-row"><span class="blend-region">France → Languedoc-Roussillon:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a>, <a href="#Grenache_Garnacha" class="blend-partner">Grenache/Garnacha</a>, <a href="#Syrah_Shiraz" class="blend-partner">Syrah/Shiraz</a></div><div class="blend-row"><span class="blend-region">South Africa → Stellenbosch:</span> <a href="#Pinotage" class="blend-partner">Pinotage</a></div><div class="blend-row"><span class="blend-region">Australia → Margaret River:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a></div><div class="blend-row"><span class="blend-region">New Zealand → Hawke's Bay:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Margaret River</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Chile</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Central Valley</span><div class="style-notes"><span class="note">high volume</span></div>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Bordeaux</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Bordeaux AOC</span>, <span class="appellation">Bordeaux Supérieur AOC</span></div>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Bordeaux (Left Bank)</span></summary>
+  <div class="region-children">
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Graves</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Graves AOC</span>, <span class="appellation">Pessac-Léognan AOC</span></div></div>
+</details>
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Médoc</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Margaux AOC</span>, <span class="appellation">Pauillac AOC</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Bordeaux (Right Bank)</span></summary>
+  <div class="region-children">
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Pomerol</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Pomerol AOC</span></div></div>
+</details>
+
+<details class="region depth-3" open>
+  <summary><span class="region-name ">Saint-Émilion</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Saint-Émilion AOC</span>, <span class="appellation">Saint-Émilion Gran Cru AOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Pays d'Oc IGP</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">New Zealand</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Hawke's Bay</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Stellenbosch</span><div class="style-notes"><span class="note">Cabernet Sauvignon and Merlot sometimes blended with the local grape Pinotage (Cape Blend)</span> · <span class="note">age-worthy</span></div>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">California</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">California</span></div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Napa Valley</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Sonoma</span>
+</div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Meunier" open>
+  <summary>
+    <h2>Meunier</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions"><em>No regions defined</em></div>
+</details>
+
+<details class="grape" id="Montepulciano" open>
+  <summary>
+    <h2>Montepulciano</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Abruzzo</span><div class="style-notes"><span class="note">high volume</span> · <span class="note">inexpensive</span> · <span class="note">early drinking</span> · <span class="note">more concentrated</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Montepulciano d'Abruzzo DOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Moscato_Muscat" open>
+  <summary>
+    <h2>Moscato/Muscat</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Piemonte</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Asti DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Nebbiolo" open>
+  <summary>
+    <h2>Nebbiolo</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">age-worthy</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Piemonte</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Barolo DOCG</span>, <span class="appellation">Barbaresco DOCG</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Pinot_Grigio_Pinot_Gris" open>
+  <summary>
+    <h2>Pinot Grigio/Pinot Gris</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  <div class="grape-notes"><span class="note">high yields</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Alsace</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Alsace AOC</span>, <span class="appellation">Alsace Grand Cru</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Friuli-Venezia Giulia</span>
+</div>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Veneto</span><div class="style-notes"><span class="note">inexpensive</span> · <span class="note">high yield</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">delle Venezie DOC</span>, <span class="appellation">Veneto IGT</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Pinot_Noir" open>
+  <summary>
+    <h2>Pinot Noir</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  <div class="grape-notes"><span class="note">thin skin</span> · <span class="note">prone to rot and disease</span> · <span class="note">typically single varietal (with exception of Champagne)</span> · <span class="note">careful use of oak</span> · <span class="note">used to make sparkling wines</span> · <span class="note">the only Burgundy red</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Mornington Peninsula</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Yarra Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Chile</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Casablanca Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Burgundy</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Bourgogne AOC</span>, <span class="appellation">Gevrey-Chambertin AOC</span>, <span class="appellation">Nuits-Saint-Georges AOC</span>, <span class="appellation">Beaune AOC</span>, <span class="appellation">Pommard AOC</span>, <span class="appellation">Clos Saint-Jacques</span>, <span class="appellation">Le Chambertin</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">New Zealand</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Central Otago</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Marlborough</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Martinborough</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Walker Bay</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">California</span><div class="style-notes"><span class="note">moderating influences allow growing of Pinot Noir in otherwise too warm climates</span></div></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Los Carneros</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Santa Barbara County</span>
+</div>
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Sonoma</span>
+</div></div>
+</details>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Oregon</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Pinotage" open>
+  <summary>
+    <h2>Pinotage</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">closely related to Pinot Noir</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a>, <a href="#Merlot" class="blend-partner">Merlot</a> <span class="blend-name">(Cape Blends)</span></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Western Cape</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Riesling" open>
+  <summary>
+    <h2>Riesling</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  <div class="grape-notes"><span class="note">fruity and floral aromas</span> · <span class="note">aromatic variety</span> · <span class="note">susceptible to botrytis/noble rot</span> · <span class="note">retains acidity and builds up sugar and flavour slowly</span> · <span class="note">suitable for late-harvesting in regions where there are dry, sunny autumn conditions</span> · <span class="note">versatile: produces styles from dry to sweet</span> · <span class="note">fruit characteristics vary according to ripeness</span> · <span class="note">many harvest options</span> · <span class="note">unoaked</span> · <span class="note">often incorrectly associated with Liebfraumilch (low-quality sweetened wine)</span> · <span class="note">Eiswein (ice wine)</span> · <span class="note">Süssreserve (unfermented grape juice)</span> · <span class="note">Trocken (dry wine)</span> · <span class="note">Halbtrocken (wine with some sweetness)</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Clare Valley</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Eden Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Alsace</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Alsace AOC</span>, <span class="appellation">Alsace Grand Cru</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Germany</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Mosel</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Pfalz</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Rheingau</span>
+</div></div>
+</details></div>
+</details>
+
+<details class="grape" id="Sangiovese" open>
+  <summary>
+    <h2>Sangiovese</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Toscana</span></summary>
+  <div class="region-children">
+
+<details class="region depth-2" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Chianti</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Chianti DOCG</span>, <span class="appellation">Chianti Classico DOCG</span>, <span class="appellation">Chianti Classico DOCG Riserva</span></div></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Montalcino</span><div class="style-notes"><span class="note">Brunello is the local name for Sangiovese</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Brunello di Montalcino DOCG</span></div></div>
+</details></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Sauvignon_Blanc" open>
+  <summary>
+    <h2>Sauvignon Blanc</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#4a90d9">cool</span> <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  <div class="grape-notes"><span class="note">aromatic</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">General:</span> <a href="#Sémillon_Semillon" class="blend-partner">Sémillon/Semillon</a></div><div class="blend-row"><span class="blend-region">France → Bordeaux:</span> <a href="#Sémillon_Semillon" class="blend-partner">Sémillon/Semillon</a></div><div class="blend-row"><span class="blend-region">Australia:</span> <a href="#Sémillon_Semillon" class="blend-partner">Sémillon/Semillon</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name key-region"><span class="key-marker">★</span>Adelaide Hills</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Margaret River</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Chile</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Casablanca Valley</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Central Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Bordeaux</span><div class="style-notes"><span class="note">age-worthy</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Bordeaux AOC</span>, <span class="appellation">Graves AOC</span>, <span class="appellation">Pessac-Léognan AOC</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Pays d'Oc IGP</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Loire Valley</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Sancerre AOC</span>, <span class="appellation">Pouilly-Fumé AOC</span>, <span class="appellation">Touraine AOC</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">New Zealand</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name key-region"><span class="key-marker">★</span>Marlborough</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">South Africa</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Constantia</span>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Elgin</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">California</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-2">
+  <span class="region-name ">Napa Valley</span>
+</div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Sémillon_Semillon" open>
+  <summary>
+    <h2>Sémillon/Semillon</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">France → Bordeaux:</span> <a href="#Sauvignon_Blanc" class="blend-partner">Sauvignon Blanc</a></div><div class="blend-row"><span class="blend-region">Australia:</span> <a href="#Sauvignon_Blanc" class="blend-partner">Sauvignon Blanc</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Australia</span><div class="style-notes"><span class="note">used in the production of botrytised sweet wines</span> · <span class="note">also used to make dry wines in a number of different styles</span></div></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Barossa Valley</span><div class="style-notes"><span class="note">made in a number of different styles</span> · <span class="note">ranges from light Hunter Valley-like styles to full-bodied and oak-matured</span></div>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Hunter Valley</span><div class="style-notes"><span class="note">distinctive dry, single-varietal style</span> · <span class="note">made in inert vessels and bottled young</span> · <span class="note">initially quite neutral flavours</span></div>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Bordeaux</span><div class="style-notes"><span class="note">used in both dry and sweet wines</span> · <span class="note">provides body and ageing potential to blends</span> · <span class="note">very good or outstanding wines often matured in oak</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Bordeaux AOC</span></div>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Sauternes</span><div class="style-notes"><span class="note">particularly susceptible to botrytis</span> · <span class="note">can develop in the bottle for many years</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Sauternes AOC</span></div></div>
+</details></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Syrah_Shiraz" open>
+  <summary>
+    <h2>Syrah/Shiraz</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#f5a623">moderate</span> <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">thick skin</span> · <span class="note">small grapes</span> · <span class="note">also used to add colour, black-fruit flavours and tannins to blends</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">Australia:</span> <a href="#Cabernet_Sauvignon" class="blend-partner">Cabernet Sauvignon</a>, <a href="#Grenache_Garnacha" class="blend-partner">Grenache/Garnacha</a> <span class="blend-name">(Rhône Blends)</span></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Australia</span><div class="style-notes"><span class="note">style known as Shiraz</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">South Eastern Australia</span></div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Barossa Valley</span><div class="style-notes"><span class="note">low yields</span> · <span class="note">concentrated fruit</span> · <span class="note">some of the world's oldest Shiraz vines</span></div>
+</div>
+
+<div class="region leaf depth-1">
+  <span class="region-name ">Hunter Valley</span>
+</div></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Languedoc-Roussillon</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Minervois AOC</span>, <span class="appellation">Pays d'Oc IGP</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Northern Rhône</span><div class="style-notes"><span class="note">style known as Syrah</span></div></summary>
+  <div class="region-children">
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Côte Rôtie</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Côte Rôtie AOC</span></div></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Crozes-Hermitage</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Crozes-Hermitage AOC</span></div></div>
+</details>
+
+<details class="region depth-2" open>
+  <summary><span class="region-name ">Hermitage</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Hermitage AOC</span></div></div>
+</details></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Tempranillo" open>
+  <summary>
+    <h2>Tempranillo</h2>
+    <span class="colour-badge black">black</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">versatile</span></div>
+  <div class="blend-section"><span class="blend-header">Blending:</span><div class="blend-row"><span class="blend-region">Spain → Rioja:</span> <a href="#Grenache_Garnacha" class="blend-partner">Grenache/Garnacha</a></div></div>
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Spain</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Catalunya</span><div class="style-notes"><span class="note">high volume</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Catalunya DO</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Ribera del Duero</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Ribera del Duero DO</span></div></div>
+</details>
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Rioja</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Rioja DOCa</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Verdicchio" open>
+  <summary>
+    <h2>Verdicchio</h2>
+    <span class="colour-badge white">white</span>
+    
+  </summary>
+  <div class="grape-notes"><span class="note">simple</span> · <span class="note">not intended for ageing</span> · <span class="note">outstanding examples develop tertiary characteristics</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name key-region"><span class="key-marker">★</span>Marche</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Verdicchio dei Castelli di Jesi DOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Viognier" open>
+  <summary>
+    <h2>Viognier</h2>
+    <span class="colour-badge white">white</span>
+    <span class="climate-tag" style="background:#f5a623">moderate</span>
+  </summary>
+  <div class="grape-notes"><span class="note">aromatic</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">France</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Northern Rhône</span></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Condrieu AOC</span></div></div>
+</details></div>
+</details></div>
+</details>
+
+<details class="grape" id="Zinfandel_Primitivo" open>
+  <summary>
+    <h2>Zinfandel/Primitivo</h2>
+    <span class="colour-badge black">black</span>
+    <span class="climate-tag" style="background:#d0021b">warm</span>
+  </summary>
+  <div class="grape-notes"><span class="note">grapes ripens unevenly, leading to high sugar levels</span></div>
+  
+  <div class="grape-regions">
+<details class="region depth-0" open>
+  <summary><span class="region-name ">Italy</span></summary>
+  <div class="region-children">
+
+<details class="region depth-1" open>
+  <summary><span class="region-name ">Puglia</span><div class="style-notes"><span class="note">very good or outstanding examples can be made from controlled yields of grapes</span></div></summary>
+  <div class="region-children"><div class="appellations">Appellations: <span class="appellation">Primitivo IGT</span></div></div>
+</details></div>
+</details>
+
+<details class="region depth-0" open>
+  <summary><span class="region-name ">USA</span></summary>
+  <div class="region-children">
+
+<div class="region leaf depth-1">
+  <span class="region-name key-region"><span class="key-marker">★</span>California</span><div class="style-notes"><span class="note">low alcohol and medium sweetness achieved by removing the yeasts before the fermentation has finished</span> · <span class="note">Rosé style</span> · <span class="note">White Zinfandel</span> · <span class="note">some very old Zinfandel vines produce low quantities of very concentrated fruit</span></div>
+</div></div>
+</details></div>
+</details>
+</body>
+</html>
