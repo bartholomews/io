@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSET L2 — Mistakes Quiz</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 700px; margin: 0 auto; padding: 24px; background: #1a1a2e; color: #e0e0e0; }
+  nav { display:flex;gap:16px;padding:8px 0 16px;border-bottom:1px solid #333;margin-bottom:16px;font-size:14px; }
+  nav a { color:#888;text-decoration:none; }
+  nav a.active { color:#60a5fa;font-weight:700; }
+  h1 { font-size: 20px; border-bottom: 2px solid #444; padding-bottom: 8px; color: #fff; }
+  .stats { font-size: 14px; color: #888; margin-bottom: 16px; }
+  .stats span { color: #60a5fa; font-weight: 600; }
+  #quiz-area { margin-top: 16px; }
+  .q-card { background: #1e1e36; border: 1px solid #333; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .q-source { font-size: 11px; color: #666; margin-bottom: 8px; }
+  .q-text { font-size: 15px; font-weight: 600; color: #ddd; margin-bottom: 12px; line-height: 1.4; }
+  .q-note { font-size: 12px; color: #888; margin-top: 8px; padding: 8px; background: #1a1a30; border-radius: 4px; display: none; }
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .opt { padding: 10px 14px; border-radius: 6px; border: 1px solid #333; background: #252545; cursor: pointer; font-size: 14px; color: #ccc; transition: all 0.15s; }
+  .opt:hover { background: #303060; border-color: #555; }
+  .opt.correct { background: #1a4a2a; border-color: #4ade80; color: #4ade80; }
+  .opt.wrong { background: #4a1a1a; border-color: #f87171; color: #f87171; }
+  .opt.reveal { background: #1a4a2a; border-color: #4ade80; color: #4ade80; opacity: 0.7; }
+  .opt.disabled { pointer-events: none; opacity: 0.6; }
+  .controls { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .btn { padding: 8px 16px; border-radius: 6px; border: 1px solid #555; background: #252545; color: #ccc; cursor: pointer; font-size: 13px; }
+  .btn:hover { background: #303060; }
+  .btn.active { background: #3b3b7a; border-color: #60a5fa; color: #60a5fa; }
+  .progress { font-size: 14px; color: #888; margin-bottom: 12px; }
+  .progress .score { color: #4ade80; font-weight: 600; }
+  .progress .errors { color: #f87171; font-weight: 600; }
+  .summary { background: #1e1e36; border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .summary h2 { font-size: 18px; color: #fff; margin: 0 0 12px 0; }
+  .summary .final { font-size: 28px; font-weight: 700; }
+  .summary .final.pass { color: #4ade80; }
+  .summary .final.fail { color: #f87171; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/wine/">Reference</a>
+  <a href="/wine/grapes.html">Grapes</a>
+  <a href="/wine/regions.html">Regions</a>
+  <a href="/wine/mistakes.html" class="active">Mistakes</a>
+</nav>
+<h1>Mistakes Quiz</h1>
+<div class="stats">All wrong answers across revisions + mocks — <span id="total-count"></span> questions</div>
+<div class="controls">
+  <button class="btn active" data-filter="all">All</button>
+  <button class="btn" data-filter="revision">Revisions</button>
+  <button class="btn" data-filter="mock">Mocks</button>
+  <button class="btn" id="shuffle-btn">Shuffle</button>
+</div>
+<div class="progress" id="progress"></div>
+<div id="quiz-area"></div>
+
+<script>
+const MISTAKES = [
+  // ── Revision mistakes ──
+  { source: "revision", tag: "Sauvignon Blanc", q: "Sauvignon Blanc grows best in which type of climate?", options: ["Cool", "Moderate", "Cool and Moderate", "Cool, Moderate and Warm"], answer: "Cool and Moderate", note: "SB is Cool-Moderate only, NOT warm. Warm climate = loses acidity and herbaceous character." },
+  { source: "revision", tag: "Sauvignon Blanc", q: "In warmer climates Sauvignon Blanc can produce flavours of:", options: ["Melon and Pineapple", "Passion Fruit", "Lychee and Rose", "Honey and Nuts"], answer: "Passion Fruit", note: "Blueprint says 'Tropical fruit (passion fruit)' for extra-ripe SB. Melon/Pineapple are NOT listed for SB." },
+  { source: "revision", tag: "Gewürztraminer", q: "Gewürztraminer can develop which flavours in the bottle?", options: ["Petrol and almonds", "Honey and dried fruit", "Vanilla and toast", "Bread and biscuit"], answer: "Honey and dried fruit", note: "Petrol = Riesling ageing, not Gewurz. Gewurz develops honey and dried fruit aromas with age." },
+  { source: "revision", tag: "Pinotage", q: "Pinotage is known for taking on which flavour characteristics when matured in oak?", options: ["Cedar and tobacco", "Coffee and chocolate", "Vanilla and coconut", "Smoke and clove"], answer: "Coffee and chocolate", note: "Cedar/tobacco = Cab Sauv oak ageing. Pinotage + oak = coffee and chocolate." },
+  { source: "revision", tag: "Sherry", q: "A Sherry labelled PX will be:", options: ["Dry and pale", "Sweet and deep in colour", "Dry and amber", "Off-dry and golden"], answer: "Sweet and deep in colour", note: "PX = Pedro Ximénez = sun-dried grapes = intensely sweet, very dark. Dry & pale = Fino." },
+  { source: "revision", tag: "Food Pairing", q: "Salt in food: 1) Decreases bitterness 2) Increases acidity 3) Increases body 4) Decreases fruit — which are correct?", options: ["1, 2 and 3", "1 and 3 only", "1, 3 and 4", "All of the above"], answer: "1 and 3 only", note: "Salt does NOT increase acidity. Salt: decreases bitterness (1) + increases body (3)." },
+  { source: "revision", tag: "Winemaking", q: "Ageing wine in OLD oak barrels can give the wine: 1. Vanilla/coconut 2. Softer Tannins 3. Caramel/dried fruit/nut 4. Bubbles", options: ["1 and 2 only", "2 and 3 only", "1, 2 and 3", "2 only"], answer: "2 and 3 only", note: "Vanilla/coconut = NEW oak. OLD oak: softer tannins (2) + tertiary flavours like caramel, dried fruit, nut (3)." },
+  { source: "revision", tag: "Pinot Noir", q: "Pinot Noir grapes prefer what climate?", options: ["Cool", "Moderate", "Cool to Moderate", "Warm"], answer: "Moderate", note: "Blueprint says Cool-Moderate. Platform answer is Moderate." },
+  { source: "revision", tag: "Pinot Noir", q: "In New Zealand, Central Otago is suitable for Pinot Noir because:", options: ["It is warmed by volcanic activity", "It is protected from sea breezes and rain by mountains", "It has high rainfall", "It is close to the coast"], answer: "It is protected from sea breezes and rain by mountains", note: "Central Otago is inland, sheltered by mountains — not volcanic." },
+  { source: "revision", tag: "Zinfandel", q: "A typical Californian Zinfandel has pronounced flavours of:", options: ["Blackcurrant and herbs", "Dried fruit and vanilla", "Cherry and pepper", "Plum and tobacco"], answer: "Dried fruit and vanilla", note: "Blackcurrant/herbs = Cab Sauv. Zinfandel = dried fruit + vanilla (from oak ageing)." },
+  { source: "revision", tag: "Riesling", q: "Prädikatswein is categorised according to:", options: ["The sugar levels in the wine", "The sugar levels in the grapes", "The region of production", "The age of the wine"], answer: "The sugar levels in the grapes", note: "Grapes not wine. Prädikat = ripeness level of grapes at harvest." },
+  { source: "revision", tag: "Riesling", q: "The fuller bodied Rieslings in Germany are produced in:", options: ["Rheingau", "Pfalz", "Mosel", "Franken"], answer: "Pfalz", note: "Pfalz = warmer German region = fuller body. Mosel = lightest." },
+  { source: "revision", tag: "Riesling", q: "A typical Alsace Riesling has medium levels of sweetness with pronounced aroma and flavour intensity.", options: ["TRUE", "FALSE"], answer: "FALSE", note: "Alsace Riesling is typically DRY, not medium sweet." },
+  { source: "revision", tag: "Chenin/Sémillon/Furmint", q: "Sweet Tokaji wines have flavours of:", options: ["Figs and Prunes", "Dried fruit and vanilla", "Honey and marmalade", "Caramel and walnut"], answer: "Dried fruit and vanilla", note: "Platform answer is dried fruit + vanilla." },
+  { source: "revision", tag: "Chardonnay", q: "Which are important regions for quality Chardonnay in North America? 1. Santa Barbara 2. Sonoma 3. Central Valley 4. Los Carneros", options: ["All of the above", "1, 2 and 4 only", "1 and 2 only", "2 and 4 only"], answer: "1, 2 and 4 only", note: "Central Valley = high-volume bulk, not quality." },
+  { source: "revision", tag: "Pinot Grigio", q: "Which direction do the Grand Cru vineyards of Alsace face?", options: ["South/South West", "East/South East", "North", "West"], answer: "East/South East", note: "Alsace Grand Cru = East/South East (Vosges on west). Burgundy = South/South East." },
+  { source: "revision", tag: "Merlot", q: "What flavour characteristics do the best Merlot dominant wines develop as they age?", options: ["Mushroom and forest floor", "Dried fruits and tobacco", "Petrol and honey", "Leather and spice"], answer: "Dried fruits and tobacco", note: "Mushroom/forest floor = Pinot Noir ageing. Merlot ageing = dried fruits + tobacco." },
+  { source: "revision", tag: "Syrah", q: "Which grape variety is Syrah sometimes blended with in Côte-Rôtie?", options: ["Grenache", "Viognier", "Mourvèdre", "Cabernet Sauvignon"], answer: "Viognier", note: "Grenache = Southern Rhône (GSM). Côte-Rôtie = Northern Rhône = Syrah + Viognier." },
+  { source: "revision", tag: "Italian Grapes", q: "Garganega produces what style of wine?", options: ["Dry, light-bodied with medium acidity", "Dry, medium-bodied with high acidity", "Off-dry, light-bodied with low acidity", "Sweet, full-bodied"], answer: "Dry, medium-bodied with high acidity", note: "Garganega = medium body + HIGH acidity." },
+  { source: "revision", tag: "Italian Grapes", q: "Wines made from Nebbiolo have:", options: ["Red-fruit and black-fruit aromas, sometimes spice", "Red-fruit aromas, dried herbs and sometimes floral characters", "Black-fruit aromas and cedar", "Tropical fruit and vanilla"], answer: "Red-fruit aromas, dried herbs and sometimes floral characters", note: "Nebbiolo = red fruit + dried herbs + floral (rose, violet). NOT black fruit." },
+  { source: "revision", tag: "Italian Grapes", q: "Barbera produces wines that have:", options: ["Aromas of black fruit and roses", "Aromas of red cherries and black pepper", "Aromas of tropical fruit and honey", "Aromas of green apple and lemon"], answer: "Aromas of red cherries and black pepper", note: "Barbera = red cherries + black pepper. Roses = Nebbiolo." },
+  { source: "revision", tag: "Italian Grapes", q: "Montepulciano makes wines that are:", options: ["Light coloured, with flavours of cherry and strawberry", "Deeply coloured, with high tannins and dark fruits", "Medium coloured, with low tannins and red fruits", "Pale, with floral aromas"], answer: "Deeply coloured, with high tannins and dark fruits", note: "Montepulciano = DEEPLY coloured + dark fruits." },
+  { source: "revision", tag: "Storage/Service", q: "Which wine has recommended service temp of 7-10°C?", options: ["Sauternes", "Pinot Grigio", "Oaked Chardonnay", "Beaujolais"], answer: "Pinot Grigio", note: "Sauternes = sweet = well chilled (6-8°C). Pinot Grigio = light white = chilled (7-10°C)." },
+  { source: "revision", tag: "Labelling", q: "Geographical Indication (GI) is a legally defined vineyard area within a country.", options: ["TRUE", "FALSE"], answer: "TRUE", note: "GI = legally defined vineyard area. This IS true." },
+  { source: "revision", tag: "Wine Region", q: "Outstanding quality wines from Saint-Emilion AOC and Pomerol AOC are:", options: ["Medium-bodied with red fruit and black pepper", "Full-bodied with red and black fruits and oak flavours", "Light-bodied with floral aromas", "Full-bodied with tropical fruit"], answer: "Full-bodied with red and black fruits and oak flavours", note: "St-Émilion/Pomerol = Merlot Right Bank = full-bodied with oak." },
+  { source: "revision", tag: "Wine Region", q: "Constantia in South Africa has a reputation for:", options: ["Unoaked Chenin Blanc", "Sauvignon Blanc", "Pinotage", "Shiraz"], answer: "Sauvignon Blanc", note: "Constantia = Sauvignon Blanc." },
+  { source: "revision", tag: "Gamay", q: "How many crus are there in Beaujolais?", options: ["8", "10", "12", "15"], answer: "10", note: "10 Beaujolais crus (Fleurie, Morgon, Moulin-à-Vent, etc.)." },
+
+  // ── Mock exam 1 mistakes ──
+  { source: "mock", tag: "Mock 1", q: "How does the climate of a vineyard in the centre of a landmass differ from one near the coast?", options: ["Winter is hotter, Summer is hotter", "Winter is hotter, Summer is colder", "Winter is colder, Summer is hotter", "Winter is colder, Summer is colder"], answer: "Winter is colder, Summer is hotter", note: "Continental = more extreme: colder winters, hotter summers." },
+  { source: "mock", tag: "Mock 1", q: "Which of the following typically describes Alsace Gewurztraminer?", options: ["Acidity is low to medium; Body is full; Alcohol is high", "Acidity is low; Body is light; Alcohol is high", "Acidity is high; Body is full; Alcohol is low", "Acidity is high; Body is light; Alcohol is low"], answer: "Acidity is low to medium; Body is full; Alcohol is high", note: "Gewurz = low-medium acid, full body, high alcohol." },
+  { source: "mock", tag: "Mock 1", q: "The appearance of an LBV port will usually be:", options: ["Pale garnet", "Pale tawny", "Medium tawny", "Deep ruby"], answer: "Deep ruby", note: "LBV = Late Bottled Vintage = deep ruby. Tawny ports are tawny." },
+  { source: "mock", tag: "Mock 1", q: "Where do 'pudding stones' in the soil retain warmth?", options: ["Côte Rôtie", "Châteauneuf-du-Pape", "Pauillac", "Crozes-Hermitage"], answer: "Châteauneuf-du-Pape", note: "Galets (pudding stones) = Châteauneuf-du-Pape." },
+  { source: "mock", tag: "Mock 1", q: "Which fortified wine is made by adding grape spirit AFTER fermentation?", options: ["Sherry", "Vins doux Naturels", "Madeira", "Port"], answer: "Sherry", note: "Sherry = fortified AFTER fermentation (dry base). Port = fortified DURING." },
+  { source: "mock", tag: "Mock 1", q: "Which grape variety is particularly susceptible to noble rot?", options: ["Cabernet Sauvignon", "Chenin Blanc", "Merlot", "Chardonnay"], answer: "Chenin Blanc", note: "Chenin Blanc, Sémillon, Riesling, Furmint = noble rot susceptible." },
+  { source: "mock", tag: "Mock 1", q: "Which country is well known for Cabernet Sauvignon and Shiraz blends?", options: ["Spain", "France", "Australia", "New Zealand"], answer: "Australia", note: "Cab Sauv + Shiraz blend = distinctly Australian." },
+  { source: "mock", tag: "Mock 1", q: "A creamy texture can be given to wine by:", options: ["Pumping over", "Lees ageing", "Punching down", "Flor ageing"], answer: "Lees ageing", note: "Lees ageing = creamy texture. Flor = biological ageing in Sherry." },
+
+  // ── Mock exam 2 mistakes ──
+  { source: "mock", tag: "Mock 2", q: "Grenache is best suited to which climate?", options: ["Cool only", "Moderate only", "Hot only", "Cool, moderate and hot"], answer: "Hot only.", note: "Grenache = warm to hot climate grape." },
+  { source: "mock", tag: "Mock 2", q: "Which best describes Barbaresco DOCG?", options: ["semi-sweet sparkling", "light-bodied fruity red", "full-bodied high tannin red", "crisp fruity white"], answer: "full-bodied high tannin red", note: "Barbaresco = Nebbiolo = full-bodied, high tannin, high acid." },
+  { source: "mock", tag: "Mock 2", q: "Which one of the following is a vineyard pest?", options: ["Mildew", "Botrytis Cinerea", "Frost", "Birds"], answer: "Birds", note: "Mildew = disease. Frost = hazard. Botrytis = fungus. Birds = pest." },
+  { source: "mock", tag: "Mock 2", q: "High acidity makes Riesling suited to: 1. Late harvest 2. Sweet fortified 3. Dry fortified 4. Ageing", options: ["1 only", "2 and 3 only", "1 and 4 only", "1, 2, and 4 only"], answer: "1 and 4 only", note: "Riesling = late harvest + ageing. NOT fortified." },
+  { source: "mock", tag: "Mock 2", q: "Which soil property is most important for quality grapes?", options: ["High nutrient content", "Good natural drainage", "Good water retention", "Deep topsoil"], answer: "Good natural drainage", note: "Drainage is key — vines need to struggle, not sit in water." },
+  { source: "mock", tag: "Mock 2", q: "The main problem caused by birds in vineyards is that they:", options: ["spread disease", "eat the grapes", "eat the leaves", "attack vine roots"], answer: "eat the grapes", note: "Birds eat the grapes before harvest." },
+  { source: "mock", tag: "Mock 2", q: "Which may be caused by cork taint? 1. Reduction in fruit aromas 2. Smell of damp cardboard 3. Dull brown colour 4. Hazy appearance", options: ["1 and 2 only", "1, 2 and 3 only", "3 and 4 only", "1, 2, 3 and 4"], answer: "1 and 2 only.", note: "Cork taint = TCA. Affects nose (cardboard, muted fruit). NOT colour or clarity." },
+  { source: "mock", tag: "Mock 2", q: "Hand harvesting is essential when:", options: ["Grapes are on large flat vineyards", "Labour costs are high", "Grape stems are not required", "Whole bunches of grapes are required"], answer: "When whole bunches of grapes are required.", note: "Whole bunches needed = must hand harvest. Machines damage bunches." },
+  { source: "mock", tag: "Mock 2", q: "Oloroso Sherry is fortified by:", options: ["Adding grape spirit after fermentation", "Undergoing a second fermentation", "Adding grape spirit during fermentation", "Ageing in a solera"], answer: "Adding grape spirit after fermentation", note: "ALL Sherry is fortified after fermentation. Port = during." },
+  { source: "mock", tag: "Mock 2", q: "Sweet food makes a dry wine taste:", options: ["More acidic and less fruity", "More acidic and more fruity", "Less acidic and less fruity", "Less acidic and more fruity"], answer: "More acidic and less fruity.", note: "Sweet food = hostile to dry wine: more bitter, more acidic, less fruity." },
+  { source: "mock", tag: "Mock 2", q: "The vineyards of northern Europe are warmed by:", options: ["high levels of rain", "ocean currents from the Caribbean", "fog", "warm air from mountains"], answer: "ocean currents from the Caribbean", note: "Gulf Stream (Caribbean ocean currents) warms northern Europe." },
+
+  // ── Mock exam 3 mistakes ──
+  { source: "mock", tag: "Mock 3", q: "Which best describes a German Riesling Trockenbeerenauslese?", options: ["A dry ruby wine with black fruit and spice", "A sweet golden wine with tropical, dried fruit and botrytis aromas", "An off-dry amber wine with oxidative nutty aromas", "A sweet golden wine with very pure clean varietal fruit aromas"], answer: "A sweet golden wine with tropical, dried fruit and botrytis aromas", note: "TBA = botrytis affected. 'Very pure clean varietal' = no botrytis character." },
+  { source: "mock", tag: "Mock 3", q: "Which of the following is a varietally labelled wine?", options: ["Gevrey-Chambertin", "Pouilly-Fuisse", "Marlborough Sauvignon Blanc", "Chablis"], answer: "Marlborough Sauvignon Blanc", note: "Varietal label = grape name on label. The others are all place names." },
+  { source: "mock", tag: "Mock 3", q: "What would be a good match with salty blue cheese?", options: ["Sweet, full bodied red", "Dry, high tannin red", "Dry, delicately flavoured high acid white", "Dry sparkling wine"], answer: "Sweet, full bodied red", note: "Salty + strong cheese = needs sweet, full wine to match intensity." },
+  { source: "mock", tag: "Mock 3", q: "Which tasting note most accurately describes a young wine from Pauillac AC?", options: ["Pale gold, exotic fruit, sweet", "Intense purple, black fruit and oak, high tannins", "Pale garnet, wild red fruit and pepper, low tannins", "Pale lemon, green fruit, dry"], answer: "Intense purple, black fruit and oak aromas, high tannins", note: "Pauillac = Cab Sauv dominant = intense purple, black fruit, oak, high tannins." },
+  { source: "mock", tag: "Mock 3", q: "The words 'Sur Lie' on a bottle indicate that:", options: ["Made without synthetic pesticides", "Aged in oak", "It is a sweet wine", "Bottled directly off the dead yeast"], answer: "it has been bottled directly off the dead yeast", note: "Sur Lie = on the lees = bottled off dead yeast." },
+
+  // ── Mock exam 4 mistakes ──
+  { source: "mock", tag: "Mock 4", q: "Hot climates produce wines that are:", options: ["high in tannin", "high in alcohol", "deeper in colour", "all of the above"], answer: "all of the above", note: "Hot climate = high alcohol + deeper colour + more tannin extraction." },
+  { source: "mock", tag: "Mock 4", q: "Sémillon contributes what to a typical Bordeaux blend?", options: ["structure and acidity", "herbaceous notes", "body and ageing potential", "tannin and colour"], answer: "body and ageing potential", note: "Sémillon = body + ageing. Sauvignon Blanc = acidity + herbaceous." },
+  { source: "mock", tag: "Mock 4", q: "Semillon is often blended with which white varietal?", options: ["Sauvignon Blanc", "Cabernet Sauvignon", "Chenin Blanc", "Sauternes"], answer: "Sauvignon Blanc", note: "Classic Bordeaux white blend = Sémillon + Sauvignon Blanc." },
+  { source: "mock", tag: "Mock 4", q: "Wines labelled Macon AOC are likely to be what style of Chardonnay?", options: ["Aged", "Fruity, mostly unoaked", "Complex, barrel-fermented", "Full-bodied, heavily oaked"], answer: "Fruity, mostly unoaked", note: "Mâcon = southern Burgundy = fruity, unoaked Chardonnay. Only Chablis and Côte d'Or use oak." },
+  { source: "mock", tag: "Mock 4", q: "Sauvignon Blanc is an aromatic variety that grows best in:", options: ["Moderate and hot climates", "Cool and moderate climates", "Hot climates only", "Cool climates only"], answer: "Cool and moderate climates", note: "SB = cool and moderate. NOT hot." },
+  { source: "mock", tag: "Mock 4", q: "Gewurztraminer is full-bodied with:", options: ["low to medium acidity, pronounced floral aromas (rose)", "high acidity, pronounced herbaceous aromas (green bell pepper)", "medium acidity, light citrus aromas (lemon)", "low acidity, buttery aromas"], answer: "low to medium acidity, pronounced floral aromas (rose)", note: "Gewurz = low-med acid, full body, floral (rose, lychee). NOT herbaceous." },
+  { source: "mock", tag: "Mock 4", q: "Viognier is often used as a blending partner, and contributes:", options: ["toasty oak flavours", "floral notes and body", "tannin and colour", "acidity and structure"], answer: "floral notes and body", note: "Viognier in blends = floral aromatics + body. NOT structure/acidity." },
+  { source: "mock", tag: "Mock 4", q: "Adding Merlot to a blend can:", options: ["lower tannins, add red fruit flavours", "lower alcohol and add structure", "add tannins and sweetness", "add colour and acidity"], answer: "lower tannins, add red fruit flavours", note: "Merlot = softens blend: lower tannins + red fruit. NOT colour/acidity." },
+
+  // ── Mock exam 5 mistakes ──
+  { source: "mock", tag: "Mock 5", q: "The vineyards of Coastal California are cooled by:", options: ["Ocean currents from the Caribbean", "High levels of rain", "Cool air from the Andes", "Fog"], answer: "fog", note: "California coast = fog from cold Pacific current. Caribbean currents = Europe." },
+  { source: "mock", tag: "Mock 5", q: "Which region has a reputation for high quality Pinot Noir?", options: ["Pommard", "Saint-Émilion", "Central Valley, California", "Vouvray"], answer: "Pommard", note: "Pommard = Côte de Beaune, Burgundy = premium Pinot Noir." },
+  { source: "mock", tag: "Mock 5", q: "A Central Otago Pinot Noir is typically:", options: ["Medium bodied with powerful red fruit, medium tannins and oak flavours", "Light bodied, dried red fruit and low tannins", "Full bodied with dark fruit, high tannin and oak", "Medium bodied with pineapple and honey"], answer: "Medium bodied with powerful red fruit, medium tannins and flavours from oak", note: "Central Otago PN = medium body, powerful red fruit, medium tannins, oak." },
+  { source: "mock", tag: "Mock 5", q: "Which grape variety is used to make sparkling wine in Australia?", options: ["Shiraz", "Cabernet Sauvignon", "Riesling", "Semillon"], answer: "Shiraz", note: "Sparkling Shiraz = distinctly Australian sparkling red wine." },
+
+  // ── Mock exam 6 mistakes ──
+  { source: "mock", tag: "Mock 6", q: "What aromas in a wine are created by post-fermentation winemaking?", options: ["Secondary aromas", "Primary and secondary aromas", "Tertiary aromas", "Primary aromas"], answer: "Secondary aromas", note: "Post-fermentation winemaking (MLF, oak, lees) = secondary. Bottle ageing = tertiary." },
+  { source: "mock", tag: "Mock 6", q: "Compared to Cabernet Sauvignon, Merlot typically has:", options: ["Higher tannin, higher acidity and lighter body", "Lower tannin, higher acidity and lighter body", "Higher tannin, lower acidity and fuller body", "Lower tannin, lower acidity and fuller body"], answer: "Lower tannin, lower acidity and fuller body", note: "Merlot vs Cab Sauv = LOWER tannin, LOWER acidity, FULLER body." },
+  { source: "mock", tag: "Mock 6", q: "What characteristics do typical Semillon wines from Hunter Valley have?", options: ["Dry, light body and low alcohol", "Dry, full body and low alcohol", "Off-dry, light body and high alcohol", "Off-dry, medium body and low alcohol"], answer: "Dry, light body and low alcohol", note: "Hunter Valley Sémillon = dry, LIGHT body, low alcohol. Classic style." },
+
+  // ── Mock exam 7 mistakes ──
+  { source: "mock", tag: "Mock 7", q: "What effects can seas have on wine growing regions? 1-Cool temps 2-Cooling fogs 3-Moderate cold winters 4-Increase temps", options: ["1 and 2", "3 and 4", "2 only", "1, 2, 3 and 4"], answer: "1, 2, 3 and 4", note: "Seas have ALL four effects on nearby regions." },
+  { source: "mock", tag: "Mock 7", q: "What are the typical primary flavours of Cabernet Sauvignon?", options: ["Pineapple and mango", "Strawberry and white pepper", "Blackcurrant and mint", "Red plums and dried herbs"], answer: "Blackcurrant and mint", note: "Cab Sauv = blackcurrant + mint. Red plums = more Merlot/Pinot." },
+  { source: "mock", tag: "Mock 7", q: "Which grape variety is used to make sweet wines from noble rot?", options: ["Chenin Blanc", "Chardonnay", "Cabernet Sauvignon", "Viognier"], answer: "Chenin Blanc", note: "Noble rot grapes: Chenin Blanc, Sémillon, Riesling, Furmint. NOT Viognier." },
+  { source: "mock", tag: "Mock 7", q: "Which of the following describes a Riesling from Alsace?", options: ["Dry with high acid, citrus, stone fruit and blossom", "Sweet with low acid, honey and dried fruits", "Medium sweet with high acid, peach blossom and petrol", "Dry with low acid, citrus, wet stones and gooseberry"], answer: "Dry with high acid, citrus, stone fruit and blossom", note: "Alsace Riesling = DRY. Petrol = aged Riesling tertiary, not typical descriptor." },
+  { source: "mock", tag: "Mock 7", q: "Fleurie is a:", options: ["Beaujolais villages wine region", "Beaujolais Grand Cru wine region", "Beaujolais Cru wine region", "Beaujolais Premiere Cru wine region"], answer: "Beaujolais Cru wine region", note: "Fleurie = one of 10 Beaujolais Crus. NOT Grand Cru (that's Burgundy terminology)." },
+  { source: "mock", tag: "Mock 7", q: "Which describes a Verdicchio dei Castelli di Jesi?", options: ["Full-bodied, low acidity, rose and peach", "Medium-bodied, medium acidity, melon and mango", "Medium-bodied, high acidity, apple and fennel", "Full-bodied, high acidity, pineapple and vanilla"], answer: "Medium-bodied, high acidity, apple and fennel", note: "Verdicchio = medium body, HIGH acidity, apple + fennel." },
+
+  // ── Mock exam 8 mistakes ──
+  { source: "mock", tag: "Mock 8", q: "Which one of the following is an intense, complex red Burgundy?", options: ["Gevrey-Chambertin Premier Cru", "Pouilly-Fuisse", "Saint-Emilion Grand Cru", "Margaux"], answer: "Gevrey-Chambertin Premier Cru", note: "Gevrey-Chambertin = Burgundy (Pinot Noir). St-Émilion and Margaux = Bordeaux. Pouilly-Fuissé = white." },
+  { source: "mock", tag: "Mock 8", q: "When opening a bottle of sparkling wine you should:", options: ["Always use a corkscrew", "Warm it up first", "Hold the cork still while turning from the base", "Turn the cork while holding the neck"], answer: "Hold the cork still while turning from the base", note: "Hold cork still, turn bottle from the base. NOT the other way around." },
+];
+
+let filtered = [...MISTAKES];
+let current = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answered = new Set();
+
+document.getElementById('total-count').textContent = MISTAKES.length;
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function applyFilter(type) {
+  document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === type));
+  if (type === 'all') filtered = [...MISTAKES];
+  else filtered = MISTAKES.filter(m => m.source === type);
+  shuffle(filtered);
+  reset();
+}
+
+function reset() {
+  current = 0; correctCount = 0; wrongCount = 0; answered = new Set();
+  document.getElementById('total-count').textContent = filtered.length;
+  renderAll();
+}
+
+function renderAll() {
+  const area = document.getElementById('quiz-area');
+  area.innerHTML = '';
+  filtered.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'q-' + i;
+    const opts = shuffleOptions(m.options, m.answer);
+    card.innerHTML = `
+      <div class="q-source">${m.tag}</div>
+      <div class="q-text">${m.q}</div>
+      <div class="options">${opts.map((o, j) => `<div class="opt" data-qi="${i}" data-oi="${j}" data-val="${escHtml(o)}">${o}</div>`).join('')}</div>
+      <div class="q-note" id="note-${i}">${m.note || ''}</div>
+    `;
+    area.appendChild(card);
+  });
+  document.querySelectorAll('.opt').forEach(o => o.addEventListener('click', handleClick));
+  updateProgress();
+}
+
+function shuffleOptions(opts, answer) {
+  const copy = [...opts];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function handleClick(e) {
+  const qi = parseInt(e.target.dataset.qi);
+  if (answered.has(qi)) return;
+  answered.add(qi);
+  const m = filtered[qi];
+  const val = e.target.dataset.val;
+  const isCorrect = val === m.answer;
+  if (isCorrect) { correctCount++; e.target.classList.add('correct'); }
+  else {
+    wrongCount++;
+    e.target.classList.add('wrong');
+    document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(o => {
+      if (o.dataset.val === m.answer) o.classList.add('reveal');
+    });
+  }
+  document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(o => o.classList.add('disabled'));
+  document.getElementById('note-' + qi).style.display = 'block';
+  updateProgress();
+  if (answered.size === filtered.length) showSummary();
+}
+
+function updateProgress() {
+  const total = filtered.length;
+  const done = answered.size;
+  document.getElementById('progress').innerHTML = `${done}/${total} answered — <span class="score">${correctCount} correct</span> · <span class="errors">${wrongCount} wrong</span>`;
+}
+
+function showSummary() {
+  const pct = Math.round(100 * correctCount / filtered.length);
+  const area = document.getElementById('quiz-area');
+  const div = document.createElement('div');
+  div.className = 'summary';
+  div.innerHTML = `<h2>Done!</h2><div class="final ${pct >= 85 ? 'pass' : 'fail'}">${correctCount}/${filtered.length} (${pct}%)</div>`;
+  area.prepend(div);
+}
+
+// Init
+document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.addEventListener('click', () => applyFilter(b.dataset.filter)));
+document.getElementById('shuffle-btn').addEventListener('click', () => { shuffle(filtered); renderAll(); });
+shuffle(filtered);
+renderAll();
+</script>
+</body>
+</html>
