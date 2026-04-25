@@ -25,6 +25,7 @@
   .grapes { display: flex; flex-wrap: wrap; gap: 6px; }
   .grape { display: inline-block; padding: 4px 10px; border-radius: 14px; font-size: 13px; font-weight: 500; }
   .grape.black { background: #3a2040; color: #e0a0c8; border: 1px solid #5a3060; }
+  .grape.unique { border: 2px solid #fde047; box-shadow: 0 0 4px #fde04766; }
   .grape.white { background: #3a3a18; color: #d8d090; border: 1px solid #5a5a30; }
 
   /* Colour scale for levels */
@@ -258,7 +259,21 @@
 <details class="section">
   <summary>Key Aroma Families</summary>
   <div class="section-body">
-    <div class="subtitle">Primary aromas come from the grape itself. Secondary from winemaking (oak, MLF, lees). Tertiary from ageing (dried fruit, earth, nuts).</div>
+    <div class="subtitle">Primary aromas come from the grape itself. Secondary from winemaking (oak, MLF, lees). Tertiary from ageing (dried fruit, earth, nuts). <span style="color:#fde047">★ Gold border</span> = instant identifier (if you see this descriptor, it's almost certainly this grape).</div>
+
+    <h3 style="color:#fde047; font-size:15px; margin:16px 0 8px 0;">★ Instant Identifiers</h3>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Banana, candy</span><span class="grapes"><span class="grape black unique">Gamay</span> <span style="color:#888;font-size:12px">(carbonic maceration in Beaujolais)</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Petrol</span><span class="grapes"><span class="grape white unique">Riesling</span> <span style="color:#888;font-size:12px">(tertiary / aged)</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Grass, bell pepper, asparagus</span><span class="grapes"><span class="grape white unique">Sauvignon Blanc</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Tomato leaf</span><span class="grapes"><span class="grape black unique">Carmenère</span> <span style="color:#888;font-size:12px">(when unripe)</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Lychee</span><span class="grapes"><span class="grape white unique">Gewurztraminer</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Coffee, chocolate, smoke</span><span class="grapes"><span class="grape black unique">Pinotage</span> <span style="color:#888;font-size:12px">(when oak-aged)</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Rose, violet + dried herbs</span><span class="grapes"><span class="grape black unique">Nebbiolo</span> <span style="color:#888;font-size:12px">(floral on a red = unusual)</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Black pepper</span><span class="grapes"><span class="grape black unique">Syrah/Shiraz</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">White pepper</span><span class="grapes"><span class="grape black unique">Grenache/Garnacha</span></span></div>
+    <div class="row"><span class="level" style="color:#fde047;font-size:13px">Blossom + stone fruit</span><span class="grapes"><span class="grape white unique">Viognier</span></span></div>
+
+    <h3 style="color:#ccc; font-size:15px; margin:20px 0 8px 0;">Aroma Families</h3>
 
     <div class="row">
       <div class="level" style="color:#f472b6">Blackcurrant / Black fruit</div>
