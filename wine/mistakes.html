@@ -51,7 +51,11 @@
   <button class="btn active" data-filter="all">All</button>
   <button class="btn" data-filter="revision">Revisions</button>
   <button class="btn" data-filter="mock">Mocks</button>
+  <span style="border-left:1px solid #444;margin:0 4px"></span>
+  <button class="btn" id="sort-btn">Sort</button>
   <button class="btn" id="shuffle-btn">Shuffle</button>
+  <span style="border-left:1px solid #444;margin:0 4px"></span>
+  <button class="btn" id="reset-btn" style="border-color:#f87171;color:#f87171;">Reset</button>
 </div>
 <div class="progress" id="progress"></div>
 <div id="quiz-area"></div>
@@ -151,15 +155,32 @@ const MISTAKES = [
   { source: "mock", tag: "Mock 8", q: "When opening a bottle of sparkling wine you should:", options: ["Always use a corkscrew", "Warm it up first", "Hold the cork still while turning from the base", "Turn the cork while holding the neck"], answer: "Hold the cork still while turning from the base", note: "Hold cork still, turn bottle from the base. NOT the other way around." },
 ];
 
-let filtered = [...MISTAKES];
-let current = 0;
-let correctCount = 0;
-let wrongCount = 0;
-let answered = new Set();
+// Stable ID for each question (index in original MISTAKES array)
+MISTAKES.forEach((m, i) => m.id = i);
 
-document.getElementById('total-count').textContent = MISTAKES.length;
+const LC_KEY = 'wset-mistakes';
+function loadState() { try { return JSON.parse(localStorage.getItem(LC_KEY)) || {}; } catch { return {}; } }
+function saveState(s) { localStorage.setItem(LC_KEY, JSON.stringify(s)); }
 
-function shuffle(arr) {
+// state.answers = { [id]: { picked, correct } }, state.filter, state.order
+let state = loadState();
+let filtered = [];
+let currentFilter = state.filter || 'all';
+let currentOrder = state.order || 'sort';
+
+function getFiltered() {
+  if (currentFilter === 'all') return [...MISTAKES];
+  return MISTAKES.filter(m => m.source === currentFilter);
+}
+
+function sortByTag(arr) {
+  return arr.sort((a, b) => {
+    if (a.source !== b.source) return a.source === 'revision' ? -1 : 1;
+    return a.tag.localeCompare(b.tag) || a.q.localeCompare(b.q);
+  });
+}
+
+function shuffleArr(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -167,41 +188,73 @@ function shuffle(arr) {
   return arr;
 }
 
-function applyFilter(type) {
-  document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === type));
-  if (type === 'all') filtered = [...MISTAKES];
-  else filtered = MISTAKES.filter(m => m.source === type);
-  shuffle(filtered);
-  reset();
+function applyOrder(arr) {
+  return currentOrder === 'sort' ? sortByTag(arr) : shuffleArr(arr);
 }
 
-function reset() {
-  current = 0; correctCount = 0; wrongCount = 0; answered = new Set();
+function applyFilter(type) {
+  currentFilter = type;
+  state.filter = type;
+  saveState(state);
+  document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === type));
+  refresh();
+}
+
+function refresh() {
+  filtered = applyOrder(getFiltered());
   document.getElementById('total-count').textContent = filtered.length;
   renderAll();
 }
 
+function updateOrderButtons() {
+  document.getElementById('sort-btn').classList.toggle('active', currentOrder === 'sort');
+  document.getElementById('shuffle-btn').classList.toggle('active', currentOrder === 'shuffle');
+}
+
 function renderAll() {
+  updateOrderButtons();
   const area = document.getElementById('quiz-area');
   area.innerHTML = '';
+  const answers = state.answers || {};
   filtered.forEach((m, i) => {
     const card = document.createElement('div');
     card.className = 'q-card';
     card.id = 'q-' + i;
-    const opts = shuffleOptions(m.options, m.answer);
+    const saved = answers[m.id];
+    // If already answered, use saved option order; otherwise shuffle and store
+    let opts;
+    if (saved && saved.optOrder) {
+      opts = saved.optOrder;
+    } else {
+      opts = shuffleOptions(m.options);
+    }
     card.innerHTML = `
       <div class="q-source">${m.tag}</div>
       <div class="q-text">${m.q}</div>
-      <div class="options">${opts.map((o, j) => `<div class="opt" data-qi="${i}" data-oi="${j}" data-val="${escHtml(o)}">${o}</div>`).join('')}</div>
+      <div class="options">${opts.map((o, j) => `<div class="opt" data-qi="${i}" data-mid="${m.id}" data-oi="${j}" data-val="${escHtml(o)}">${o}</div>`).join('')}</div>
       <div class="q-note" id="note-${i}">${m.note || ''}</div>
     `;
     area.appendChild(card);
+    // Restore answered state
+    if (saved) {
+      const optEls = card.querySelectorAll('.opt');
+      optEls.forEach(o => {
+        o.classList.add('disabled');
+        if (o.dataset.val === saved.picked) {
+          o.classList.add(saved.correct ? 'correct' : 'wrong');
+        }
+        if (!saved.correct && o.dataset.val === m.answer) {
+          o.classList.add('reveal');
+        }
+      });
+      document.getElementById('note-' + i).style.display = 'block';
+    }
   });
-  document.querySelectorAll('.opt').forEach(o => o.addEventListener('click', handleClick));
+  document.querySelectorAll('.opt:not(.disabled)').forEach(o => o.addEventListener('click', handleClick));
   updateProgress();
 }
 
-function shuffleOptions(opts, answer) {
+function shuffleOptions(opts) {
   const copy = [...opts];
   for (let i = copy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -213,46 +266,80 @@ function shuffleOptions(opts, answer) {
 function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
 function handleClick(e) {
+  const mid = parseInt(e.target.dataset.mid);
   const qi = parseInt(e.target.dataset.qi);
-  if (answered.has(qi)) return;
-  answered.add(qi);
+  const answers = state.answers || {};
+  if (answers[mid]) return;
   const m = filtered[qi];
   const val = e.target.dataset.val;
   const isCorrect = val === m.answer;
-  if (isCorrect) { correctCount++; e.target.classList.add('correct'); }
+  // Save option order so it's stable on re-render
+  const optOrder = [...e.target.parentElement.querySelectorAll('.opt')].map(o => o.dataset.val);
+  answers[mid] = { picked: val, correct: isCorrect, optOrder };
+  state.answers = answers;
+  saveState(state);
+
+  if (isCorrect) { e.target.classList.add('correct'); }
   else {
-    wrongCount++;
     e.target.classList.add('wrong');
-    document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(o => {
+    document.querySelectorAll(`.opt[data-mid="${mid}"]`).forEach(o => {
       if (o.dataset.val === m.answer) o.classList.add('reveal');
     });
   }
-  document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(o => o.classList.add('disabled'));
+  document.querySelectorAll(`.opt[data-mid="${mid}"]`).forEach(o => o.classList.add('disabled'));
   document.getElementById('note-' + qi).style.display = 'block';
   updateProgress();
-  if (answered.size === filtered.length) showSummary();
+  const totalAnswered = filtered.filter(m => answers[m.id]).length;
+  if (totalAnswered === filtered.length) showSummary();
 }
 
 function updateProgress() {
+  const answers = state.answers || {};
   const total = filtered.length;
-  const done = answered.size;
-  document.getElementById('progress').innerHTML = `${done}/${total} answered — <span class="score">${correctCount} correct</span> · <span class="errors">${wrongCount} wrong</span>`;
+  let correct = 0, wrong = 0;
+  filtered.forEach(m => {
+    const a = answers[m.id];
+    if (a) { if (a.correct) correct++; else wrong++; }
+  });
+  const done = correct + wrong;
+  document.getElementById('progress').innerHTML = `${done}/${total} answered — <span class="score">${correct} correct</span> · <span class="errors">${wrong} wrong</span>`;
 }
 
 function showSummary() {
-  const pct = Math.round(100 * correctCount / filtered.length);
+  const answers = state.answers || {};
+  let correct = 0;
+  filtered.forEach(m => { if (answers[m.id]?.correct) correct++; });
+  const pct = Math.round(100 * correct / filtered.length);
+  const existing = document.querySelector('.summary');
+  if (existing) existing.remove();
   const area = document.getElementById('quiz-area');
   const div = document.createElement('div');
   div.className = 'summary';
-  div.innerHTML = `<h2>Done!</h2><div class="final ${pct >= 85 ? 'pass' : 'fail'}">${correctCount}/${filtered.length} (${pct}%)</div>`;
+  div.innerHTML = `<h2>Done!</h2><div class="final ${pct >= 85 ? 'pass' : 'fail'}">${correct}/${filtered.length} (${pct}%)</div>`;
   area.prepend(div);
 }
 
+function resetProgress() {
+  state.answers = {};
+  saveState(state);
+  refresh();
+}
+
 // Init
-document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.addEventListener('click', () => applyFilter(b.dataset.filter)));
-document.getElementById('shuffle-btn').addEventListener('click', () => { shuffle(filtered); renderAll(); });
-shuffle(filtered);
-renderAll();
+document.querySelectorAll('.controls .btn[data-filter]').forEach(b => {
+  b.addEventListener('click', () => applyFilter(b.dataset.filter));
+});
+document.getElementById('sort-btn').addEventListener('click', () => {
+  currentOrder = 'sort'; state.order = 'sort'; saveState(state); refresh();
+});
+document.getElementById('shuffle-btn').addEventListener('click', () => {
+  currentOrder = 'shuffle'; state.order = 'shuffle'; saveState(state); refresh();
+});
+document.getElementById('reset-btn').addEventListener('click', resetProgress);
+
+// Restore filter UI
+document.querySelectorAll('.controls .btn[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
+refresh();
 </script>
 </body>
 </html>
